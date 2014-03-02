@@ -1,0 +1,258 @@
+if $SHELL =~ 'bin/fish'
+    set shell=/bin/sh
+endif
+set nocompatible  " no vi compatibility
+filetype off
+
+if has('win32') || has('win64')
+    set rtp+=~/vimfiles/bundle/vundle/
+    call vundle#rc('$HOME/vimfiles/bundle/')
+    set guifont=DejaVu\ Sans\ Mono:h11
+else
+  " Usual quickstart instructions
+    set rtp+=~/.vim/bundle/vundle/
+    call vundle#rc()
+    if has("gui_macvim")
+        set guifont=DejaVu\ Sans\ Mono:h13
+     else
+        set guifont=DejaVu\ Sans\ Mono\ 11
+     endif
+endif
+
+call vundle#rc()
+Bundle 'gmarik/vundle'
+Bundle 'tpope/vim-fugitive'
+Bundle 'Lokaltog/vim-easymotion'
+Bundle 'kien/ctrlp.vim'
+Bundle 'bling/vim-airline'
+Bundle 'scrooloose/nerdtree'
+Bundle 'hesselbom/vim-hsftp'
+if has('lua')
+    Bundle 'Shougo/neocomplete.vim'
+else
+    Bundle 'Shougo/neocomplcache.vim'
+endif
+"Bundle 'Shougo/neosnippet'
+Bundle 'mattn/emmet-vim'
+" Bundle 'Yggdroot/indentLine'
+Bundle 'scrooloose/syntastic'
+Bundle 'othree/javascript-libraries-syntax.vim'
+Bundle 'terryma/vim-multiple-cursors'
+Bundle 'Valloric/MatchTagAlways'
+Bundle 'fholgado/minibufexpl.vim'
+Bundle 'evidens/vim-twig'
+Bundle 'arnaud-lb/vim-php-namespace'
+" Bundle 'Shougo/vimproc'
+"Bundle 'stephpy/vim-php-cs-fixer'
+"Bundle 'xsbeats/vim-blade'
+Bundle 'vim-scripts/Conque-Shell'
+Bundle 'groenewege/vim-less'
+Bundle 'othree/html5-syntax.vim'
+"Bundle 'm2mdas/phpcomplete-extended'
+"Bundle 'm2mdas/phpcomplete-extended-laravel'
+Bundle 'docteurklein/php-getter-setter.vim'
+Bundle 'sumpygump/php-documentor-vim'
+
+filetype plugin indent on
+
+set encoding=utf8
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Files, backups and undo
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Turn backup off, since most stuff is in SVN, git anyway...
+set nobackup
+set nowb
+set noswapfile
+set vb
+"autocmd GUIEnter * set vb t_vb=
+"autocmd VimEnter * set vb t_vb=
+syntax enable
+
+" colors
+set t_Co=256
+set background=dark
+
+if has('gui_running')
+    colorscheme Tomorrow-Night
+else
+    colorscheme Tomorrow
+endif
+
+"Persistent undo
+try
+    set undodir=~/.vim/undodir
+        set undofile
+catch
+endtry
+
+set hidden "allow to jumping between modified buffers
+set cf  " Enable error files & error jumping.
+set history=256  " Number of things to remember in history.
+"set ruler  " Ruler on
+set nu  " Line numbers on
+set nowrap  " Line wrapping off
+set timeoutlen=250  " Time to wait after ESC (default causes an annoying delay)
+set cursorline
+
+" Formatting
+set tabstop=4  " Tabs are 2 spaces
+set shiftwidth=4  " Tabs under smart indent
+set expandtab
+set smarttab
+set cindent
+set autoindent
+
+set bs=2  " Backspace over everything in insert mode
+set nocp incsearch
+set colorcolumn=80
+
+set formatoptions=tcqr
+
+" Make backspce behave more normally
+set backspace=indent,eol,start      " Visual
+
+" searching
+set hlsearch            " highlight all search results
+set incsearch           " increment search
+set ignorecase          " case-insensitive search
+set smartcase           " uppercase causes case-sensitive search
+
+set showmatch  " Show matching brackets.
+set mat=5  " Bracket blinking.
+
+
+set cmdheight=1
+set noshowmode " hide original status line because of airline
+set laststatus=2  " Always show status line.
+
+function! SaveProper()
+    :set et| retab " change indent to spaces and retab
+    :set ff=unix " set line endings to unix
+    :%s/\s\+$//e " delete trailing whitespace
+    :update " write to disk
+endfunction
+
+" keyboard remaps
+let mapleader = ","
+inoremap jk <esc>
+"nnoremap <silent> <C-s> :update<CR>
+nnoremap <silent> <C-s> :call SaveProper()<CR>
+nnoremap <space> 10jzz
+nnoremap <backspace> 10kzz
+nnoremap <leader>n :NERDTreeToggle<cr>
+nnoremap <leader>N :NERDTreeFind<cr>
+nnoremap <C-tab> :bn<CR>
+nnoremap <C-S-tab> :bp<CR>
+inoremap <C-tab> <Esc>:bn<CR>i
+inoremap <C-S-tab> <Esc>:bp<CR>i
+" move between splits more easiliy
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+nmap gV `[v`] "highlight last inserted text
+nnoremap <leader>x :bp<bar>sp<bar>bn<bar>bd<CR> " close current buffer without closing the window
+nnoremap <leader>c :clo<CR> " close current window
+nnoremap <leader>v :vs<CR> " vertical split
+
+" resize splits more easily
+nnoremap <leader>h :vertical resize -5<cr>
+nnoremap <leader>l :vertical resize +5<cr>
+
+imap <c-l> <space>=><space>
+imap <c-b> ->
+
+" let g:netrw_liststyle = 3
+
+nnoremap <silent> <leader>s :Hupload<CR>
+nnoremap <silent> <leader>d :Hdownload<CR>
+
+" neocomplcache
+if has('lua')
+    let g:acp_enableAtStartup = 0
+    let g:neocomplete#enable_at_startup = 1
+    let g:neocomplete#enable_smart_case = 1
+    let g:neocomplete#max_list = 10
+    let g:neocomplete#sources#syntax#min_keyword_length = 3
+    inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+else
+    let g:neocomplcache_enable_at_startup = 1
+    let g:neocomplcache_max_list = 10
+    let g:neocomplcache_auto_completion_start_length = 3
+endif
+
+"autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType php setlocal omnifunc=javascriptcomplete#CompletePHP
+
+" neosnippet
+" Plugin key-mappings.
+"imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+"smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+"xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+" php-namespace
+" Automatically adds the corresponding use statement for the class under the cursor.
+inoremap <Leader>u <C-O>:call PhpInsertUse()<CR>
+noremap <Leader>u :call PhpInsertUse()<CR>
+" Expands the class name under the cursor to its fully qualified name.
+inoremap <Leader>e <C-O>:call PhpExpandClass()<CR>
+noremap <Leader>e :call PhpExpandClass()<CR>
+
+" don't validate html
+let g:syntastic_html_checkers = []
+
+" For snippet_complete marker.
+if has('conceal')
+  set conceallevel=2 concealcursor=i
+endif
+" emmet
+let g:user_emmet_leader_key = '<c-tab>'
+
+" indentline
+let g:indentLine_color_gui = '#282a2e'
+let g:indentLine_char ='⁝'
+" let g:indentLine_char = '│'
+
+" javascript libraries
+let g:used_javascript_libs = 'underscore,angularjs,jquery'
+
+" airline
+let g:airline_left_sep=''
+let g:airline_right_sep=''
+let g:airline_powerline_fonts = 0
+"let g:airline#extensions#tabline#enabled = 1
+"let g:airline#extensions#tabline#fnamemod = ':t'
+"let g:airline#extensions#tabline#buffer_nr_show = 1
+
+"ctrl-p
+let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:10'
+set wildignore+=*.psd,*.doc,*.docx,*.xlsx
+set wildignore+=*/vendor/**
+
+" gvim specific
+set mousehide  " Hide mouse after chars typed
+set mouse=a  " Mouse in all modesc
+set guioptions-=m "Hide toolbar
+set guioptions-=T "Hide menubar
+
+" MiniBufExpl Colors
+hi MBENormal               guifg=#808080 guibg=fg
+hi MBEChanged              guifg=#CD5907 guibg=fg
+hi MBEVisibleNormal        guifg=#5DC2D6 guibg=fg
+hi MBEVisibleChanged       guifg=#F1266F guibg=fg
+hi MBEVisibleActiveNormal  guifg=#A6DB29 guibg=fg
+hi MBEVisibleActiveChanged guifg=#F1266F guibg=fg
+
+"phpcomplete
+let g:phpcomplete_index_composer_command = 'composer'
+
+"php getter and setter
+noremap <Leader>b :InsertBothGetterSetter<CR>
+noremap <Leader>g :InsertGetterOnly<CR>
+
+"php documentor
+au BufRead,BufNewFile *.php nnoremap <buffer> <leader>d :call PhpDoc()<CR>

@@ -1,0 +1,8 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =6
+let g:netrw_dirhist_1='/Users/ors/Dropbox/dotfiles/vim/syntax'
+let g:netrw_dirhist_2='/Users/ors/Dropbox/dotfiles/vim'
+let g:netrw_dirhist_3='/Users/ors'
+let g:netrw_dirhist_4='/Users/ors/Dropbox/University/6th Semester/Cryptography-py'
+let g:netrw_dirhist_5='/Users/ors/.vim'
+let g:netrw_dirhist_6='/Users/ors'

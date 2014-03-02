@@ -1,0 +1,9 @@
+#OS X specific
+.DS_Store
+Icon
+
+#dropboxy
+.dropbox
+
+#vim undodir
+undodir
