@@ -38,7 +38,9 @@ Bundle 'mattn/emmet-vim'
 Bundle 'scrooloose/syntastic'
 Bundle 'othree/javascript-libraries-syntax.vim'
 Bundle 'terryma/vim-multiple-cursors'
-Bundle 'Valloric/MatchTagAlways'
+if has('python')
+    Bundle 'Valloric/MatchTagAlways'
+endif
 Bundle 'fholgado/minibufexpl.vim'
 Bundle 'evidens/vim-twig'
 Bundle 'arnaud-lb/vim-php-namespace'
