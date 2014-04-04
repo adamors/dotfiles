@@ -7,7 +7,6 @@
 if !exists('g:php_annotations_syntax') || g:php_annotations_syntax != 0
     syntax match phpDocCommentLineStart #\v^\s*\*\s*# contained
     syntax region phpAnnotationString start=#"# skip=#\v\\"# end=#"# contained
-    syntax region phpAnnotationSimpleString start=#'# skip=#\v\\'# end=#'# contained
     syntax match phpAnnotationNumber #\v[0-9.]+# contained
     syntax match phpAnnotationGrouping #\v[],=[(){}@$><!]# contained
     syntax region phpAnnotationExpressionParenthesis start=#\V(# end=#\V)# contained contains=phpAnnotationExpressionParenthesis, phpAnnotationExpressionBraces, phpAnnotationExpressionBrackets, phpDocCommentLineStart, phpAnnotationString, phpAnnotationSimpleString, phpAnnotationNumber, phpAnnotationGrouping
