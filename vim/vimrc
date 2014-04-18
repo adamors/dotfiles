@@ -205,7 +205,9 @@ inoremap <Leader>e <C-O>:call PhpExpandClass()<CR>
 noremap <Leader>e :call PhpExpandClass()<CR>
 
 " don't validate html
-let g:syntastic_html_checkers = []
+let g:syntastic_mode_map = { 'mode': 'active',
+                           \ 'passive_filetypes': ['html', 'twig', 'css', 'scss', ''] }
+
 
 " For snippet_complete marker.
 if has('conceal')
@@ -234,6 +236,8 @@ let g:airline_powerline_fonts = 0
 let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:10'
 set wildignore+=*.psd,*.doc,*.docx,*.xlsx
 set wildignore+=*/vendor/**
+set wildignore+=*/node_modules/**
+set wildignore+=*/bower_components/**
 
 " gvim specific
 set mousehide  " Hide mouse after chars typed
