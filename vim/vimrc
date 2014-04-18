@@ -54,6 +54,7 @@ Bundle 'othree/html5-syntax.vim'
 "Bundle 'm2mdas/phpcomplete-extended-laravel'
 Bundle 'docteurklein/php-getter-setter.vim'
 Bundle 'sumpygump/php-documentor-vim'
+Bundle 'airblade/vim-gitgutter'
 
 filetype plugin indent on
 
