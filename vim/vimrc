@@ -15,7 +15,7 @@ else
     if has("gui_macvim")
         set guifont=DejaVu\ Sans\ Mono:h13
      else
-        set guifont=DejaVu\ Sans\ Mono\ 11
+        set guifont=DejaVu\ Sans\ Mono\ 13
      endif
 endif
 
@@ -34,7 +34,7 @@ else
 endif
 "Bundle 'Shougo/neosnippet'
 Bundle 'mattn/emmet-vim'
-" Bundle 'Yggdroot/indentLine'
+"Bundle 'Yggdroot/indentLine'
 Bundle 'scrooloose/syntastic'
 Bundle 'othree/javascript-libraries-syntax.vim'
 Bundle 'terryma/vim-multiple-cursors'
@@ -44,9 +44,9 @@ endif
 Bundle 'fholgado/minibufexpl.vim'
 Bundle 'evidens/vim-twig'
 Bundle 'arnaud-lb/vim-php-namespace'
-" Bundle 'Shougo/vimproc'
+"Bundle 'Shougo/vimproc'
 "Bundle 'stephpy/vim-php-cs-fixer'
-"Bundle 'xsbeats/vim-blade'
+Bundle 'xsbeats/vim-blade'
 Bundle 'vim-scripts/Conque-Shell'
 Bundle 'groenewege/vim-less'
 Bundle 'othree/html5-syntax.vim'
