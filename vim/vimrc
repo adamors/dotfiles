@@ -22,25 +22,19 @@ endif
 call vundle#rc()
 Bundle 'gmarik/vundle'
 Bundle 'tpope/vim-fugitive'
-"Bundle 'Lokaltog/vim-easymotion'
 Bundle 'Shougo/vimproc'
 Bundle 'Shougo/unite.vim'
-"Bundle 'kien/ctrlp.vim'
 Bundle 'bling/vim-airline'
 Bundle 'scrooloose/nerdtree'
 Bundle 'hesselbom/vim-hsftp'
 if has('lua')
     Bundle 'Shougo/neocomplete.vim'
 else
-    "Bundle 'Shougo/neocomplcache.vim'
+    Bundle 'Shougo/neocomplcache.vim'
 endif
-"Bundle 'Valloric/YouCompleteMe'
-"Bundle 'Shougo/neosnippet'
 Bundle 'mattn/emmet-vim'
-"Bundle 'Yggdroot/indentLine'
 Bundle 'scrooloose/syntastic'
 Bundle 'othree/javascript-libraries-syntax.vim'
-"Bundle 'terryma/vim-multiple-cursors'
 if has('python')
     Bundle 'Valloric/MatchTagAlways'
 endif
@@ -48,17 +42,23 @@ Bundle 'fholgado/minibufexpl.vim'
 Bundle 'evidens/vim-twig'
 Bundle 'arnaud-lb/vim-php-namespace'
 Bundle 'Shougo/vimproc'
-"Bundle 'stephpy/vim-php-cs-fixer'
 Bundle 'xsbeats/vim-blade'
-"Bundle 'vim-scripts/Conque-Shell'
 Bundle 'groenewege/vim-less'
 Bundle 'othree/html5-syntax.vim'
-"Bundle 'm2mdas/phpcomplete-extended'
-"Bundle 'm2mdas/phpcomplete-extended-laravel'
 Bundle 'docteurklein/php-getter-setter.vim'
 Bundle 'sumpygump/php-documentor-vim'
 Bundle 'airblade/vim-gitgutter'
 Bundle 'tpope/vim-markdown'
+
+"Bundle 'Lokaltog/vim-easymotion'
+"Bundle 'kien/ctrlp.vim'
+"Bundle 'Shougo/neosnippet'
+"Bundle 'Yggdroot/indentLine'
+"Bundle 'terryma/vim-multiple-cursors'
+"Bundle 'stephpy/vim-php-cs-fixer'
+"Bundle 'vim-scripts/Conque-Shell'
+"Bundle 'm2mdas/phpcomplete-extended'
+"Bundle 'm2mdas/phpcomplete-extended-laravel'
 
 filetype plugin indent on
 
@@ -174,7 +174,7 @@ imap <c-b> ->
 nnoremap Q <nop>
 
 " let g:netrw_liststyle = 3
-
+" hsftp
 nnoremap <silent> <leader>s :Hupload<CR>
 nnoremap <silent> <leader>d :Hdownload<CR>
 
@@ -241,6 +241,8 @@ let g:airline_powerline_fonts = 0
 
 "ctrl-p
 "let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:10'
+
+"unite
 nnoremap <C-p> :Unite file_rec/async -start-insert <cr>
 nnoremap <space>/ :Unite grep:.<cr>
 nnoremap <space>s :Unite -quick-match buffer<cr>
@@ -284,4 +286,4 @@ noremap <Leader>g :InsertGetterOnly<CR>
 au BufRead,BufNewFile *.php nnoremap <buffer> <leader>d :call PhpDoc()<CR>
 
 "regenerate tags
-noremap <Leader>t :!ctags -f tags --languages=PHP -R
+noremap <Leader>t :!ctags -f tags --languages=PHP -R<cr>
