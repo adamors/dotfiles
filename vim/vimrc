@@ -41,7 +41,6 @@ endif
 Bundle 'fholgado/minibufexpl.vim'
 Bundle 'evidens/vim-twig'
 Bundle 'arnaud-lb/vim-php-namespace'
-Bundle 'Shougo/vimproc'
 Bundle 'xsbeats/vim-blade'
 Bundle 'groenewege/vim-less'
 Bundle 'othree/html5-syntax.vim'
