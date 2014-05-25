@@ -15,7 +15,7 @@ else
     if has("gui_macvim")
         set guifont=DejaVu\ Sans\ Mono:h13
      else
-        set guifont=DejaVu\ Sans\ Mono\ 11
+        set guifont=DejaVu\ Sans\ Mono\ 15
      endif
 endif
 
@@ -37,7 +37,7 @@ endif
 "Bundle 'Valloric/YouCompleteMe'
 "Bundle 'Shougo/neosnippet'
 Bundle 'mattn/emmet-vim'
-" Bundle 'Yggdroot/indentLine'
+"Bundle 'Yggdroot/indentLine'
 Bundle 'scrooloose/syntastic'
 Bundle 'othree/javascript-libraries-syntax.vim'
 "Bundle 'terryma/vim-multiple-cursors'
@@ -47,8 +47,9 @@ endif
 Bundle 'fholgado/minibufexpl.vim'
 Bundle 'evidens/vim-twig'
 Bundle 'arnaud-lb/vim-php-namespace'
+Bundle 'Shougo/vimproc'
 "Bundle 'stephpy/vim-php-cs-fixer'
-"Bundle 'xsbeats/vim-blade'
+Bundle 'xsbeats/vim-blade'
 "Bundle 'vim-scripts/Conque-Shell'
 Bundle 'groenewege/vim-less'
 Bundle 'othree/html5-syntax.vim'
@@ -57,6 +58,7 @@ Bundle 'othree/html5-syntax.vim'
 Bundle 'docteurklein/php-getter-setter.vim'
 Bundle 'sumpygump/php-documentor-vim'
 Bundle 'airblade/vim-gitgutter'
+Bundle 'tpope/vim-markdown'
 
 filetype plugin indent on
 
@@ -168,6 +170,8 @@ nnoremap <leader>l :vertical resize +5<cr>
 
 imap <c-l> <space>=><space>
 imap <c-b> ->
+" die ex mode, die
+nnoremap Q <nop>
 
 " let g:netrw_liststyle = 3
 
@@ -278,3 +282,6 @@ noremap <Leader>g :InsertGetterOnly<CR>
 
 "php documentor
 au BufRead,BufNewFile *.php nnoremap <buffer> <leader>d :call PhpDoc()<CR>
+
+"regenerate tags
+noremap <Leader>t :!ctags -f tags --languages=PHP -R
