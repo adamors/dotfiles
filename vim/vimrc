@@ -22,32 +22,34 @@ endif
 call vundle#rc()
 Bundle 'gmarik/vundle'
 Bundle 'tpope/vim-fugitive'
-Bundle 'Lokaltog/vim-easymotion'
-Bundle 'kien/ctrlp.vim'
+"Bundle 'Lokaltog/vim-easymotion'
+Bundle 'Shougo/vimproc'
+Bundle 'Shougo/unite.vim'
+"Bundle 'kien/ctrlp.vim'
 Bundle 'bling/vim-airline'
 Bundle 'scrooloose/nerdtree'
 Bundle 'hesselbom/vim-hsftp'
 if has('lua')
     Bundle 'Shougo/neocomplete.vim'
 else
-    Bundle 'Shougo/neocomplcache.vim'
+    "Bundle 'Shougo/neocomplcache.vim'
 endif
+"Bundle 'Valloric/YouCompleteMe'
 "Bundle 'Shougo/neosnippet'
 Bundle 'mattn/emmet-vim'
 " Bundle 'Yggdroot/indentLine'
 Bundle 'scrooloose/syntastic'
 Bundle 'othree/javascript-libraries-syntax.vim'
-Bundle 'terryma/vim-multiple-cursors'
+"Bundle 'terryma/vim-multiple-cursors'
 if has('python')
     Bundle 'Valloric/MatchTagAlways'
 endif
 Bundle 'fholgado/minibufexpl.vim'
 Bundle 'evidens/vim-twig'
 Bundle 'arnaud-lb/vim-php-namespace'
-" Bundle 'Shougo/vimproc'
 "Bundle 'stephpy/vim-php-cs-fixer'
 "Bundle 'xsbeats/vim-blade'
-Bundle 'vim-scripts/Conque-Shell'
+"Bundle 'vim-scripts/Conque-Shell'
 Bundle 'groenewege/vim-less'
 Bundle 'othree/html5-syntax.vim'
 "Bundle 'm2mdas/phpcomplete-extended'
@@ -234,7 +236,20 @@ let g:airline_powerline_fonts = 0
 "let g:airline#extensions#tabline#buffer_nr_show = 1
 
 "ctrl-p
-let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:10'
+"let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:10'
+nnoremap <C-p> :Unite file_rec/async -start-insert <cr>
+nnoremap <space>/ :Unite grep:.<cr>
+nnoremap <space>s :Unite -quick-match buffer<cr>
+let s:unite_ignores = [
+  \ '\.git', '\.idea', 'vendor', 'node_modules', 'app/cache',
+  \ 'app/logs']
+
+call unite#custom#source('file_rec,file_rec/async,file,buffer,grep',
+  \ 'ignore_pattern', unite#get_all_sources('file_rec')['ignore_pattern'] .
+  \ join(s:unite_ignores, '\|'))
+
+call unite#filters#matcher_default#use(['matcher_fuzzy'])
+
 set wildignore+=*.psd,*.doc,*.docx,*.xlsx
 set wildignore+=*/vendor/**
 set wildignore+=*/node_modules/**
