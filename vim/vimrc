@@ -24,6 +24,7 @@ Bundle 'gmarik/vundle'
 Bundle 'tpope/vim-fugitive'
 Bundle 'Shougo/vimproc'
 Bundle 'Shougo/unite.vim'
+Bundle 'kien/ctrlp.vim'
 Bundle 'bling/vim-airline'
 Bundle 'scrooloose/nerdtree'
 Bundle 'hesselbom/vim-hsftp'
@@ -41,7 +42,6 @@ endif
 Bundle 'fholgado/minibufexpl.vim'
 Bundle 'evidens/vim-twig'
 Bundle 'arnaud-lb/vim-php-namespace'
-Bundle 'Shougo/vimproc'
 Bundle 'xsbeats/vim-blade'
 Bundle 'groenewege/vim-less'
 Bundle 'othree/html5-syntax.vim'
@@ -51,7 +51,6 @@ Bundle 'airblade/vim-gitgutter'
 Bundle 'tpope/vim-markdown'
 
 "Bundle 'Lokaltog/vim-easymotion'
-"Bundle 'kien/ctrlp.vim'
 "Bundle 'Shougo/neosnippet'
 "Bundle 'Yggdroot/indentLine'
 "Bundle 'terryma/vim-multiple-cursors'
@@ -175,6 +174,8 @@ imap <c-l> <space>=><space>
 imap <c-b> ->
 " die ex mode, die
 nnoremap Q <nop>
+" get rid of the command line history window
+noremap q: <nop>
 
 " let g:netrw_liststyle = 3
 " hsftp
@@ -243,21 +244,14 @@ let g:airline_powerline_fonts = 0
 "let g:airline#extensions#tabline#buffer_nr_show = 1
 
 "ctrl-p
-"let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:10'
+let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:10'
 
 "unite
-nnoremap <C-p> :Unite file_rec/async -start-insert <cr>
-nnoremap <space>/ :Unite grep:.<cr>
-nnoremap <space>s :Unite -quick-match buffer<cr>
-let s:unite_ignores = [
-  \ '\.git', '\.idea', 'vendor', 'node_modules', 'app/cache',
-  \ 'app/logs']
-
-call unite#custom#source('file_rec,file_rec/async,file,buffer,grep',
-  \ 'ignore_pattern', unite#get_all_sources('file_rec')['ignore_pattern'] .
-  \ join(s:unite_ignores, '\|'))
-
-call unite#filters#matcher_default#use(['matcher_fuzzy'])
+nnoremap <space>s :Unite -quick-match buffer -start-insert<cr>
+"nnoremap <C-p> :Unite file_rec/async -start-insert <cr>
+"nnoremap <space>/ :Unite grep:.<cr>
+"let s:unite_ignores = ['\.git', '\.idea', 'vendor', 'node_modules', 'app/cache', 'app/logs']
+" call unite#filters#matcher_default#use(['matcher_fuzzy'])
 
 set wildignore+=*.psd,*.doc,*.docx,*.xlsx
 set wildignore+=*/vendor/**
@@ -290,3 +284,5 @@ au BufRead,BufNewFile *.php nnoremap <buffer> <leader>d :call PhpDoc()<CR>
 
 "regenerate tags
 noremap <Leader>t :!ctags -f tags --languages=PHP -R<cr>
+" jump to definition
+noremap <Leader>f g<C-]>
