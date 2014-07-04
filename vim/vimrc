@@ -127,6 +127,9 @@ set smartcase           " uppercase causes case-sensitive search
 set showmatch  " Show matching brackets.
 set mat=5  " Bracket blinking.
 
+" Display extra whitespace
+set list listchars=tab:»·,trail:·
+
 
 set cmdheight=1
 set noshowmode " hide original status line because of airline
@@ -254,7 +257,7 @@ nnoremap <space>s :Unite -quick-match buffer -start-insert<cr>
 set wildignore+=*.psd,*.doc,*.docx,*.xlsx
 set wildignore+=*/vendor/**
 set wildignore+=*/node_modules/**
-set wildignore+=*/bower_components/**
+"set wildignore+=*/bower_components/**
 
 " gvim specific
 set mousehide  " Hide mouse after chars typed
