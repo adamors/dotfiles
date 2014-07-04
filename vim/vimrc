@@ -23,7 +23,6 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 Bundle 'tpope/vim-fugitive'
 Bundle 'Shougo/vimproc'
-Bundle 'Shougo/unite.vim'
 Bundle 'kien/ctrlp.vim'
 Bundle 'bling/vim-airline'
 Bundle 'scrooloose/nerdtree'
@@ -245,13 +244,6 @@ let g:airline_powerline_fonts = 0
 
 "ctrl-p
 let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:10'
-
-"unite
-nnoremap <space>s :Unite -quick-match buffer -start-insert<cr>
-"nnoremap <C-p> :Unite file_rec/async -start-insert <cr>
-"nnoremap <space>/ :Unite grep:.<cr>
-"let s:unite_ignores = ['\.git', '\.idea', 'vendor', 'node_modules', 'app/cache', 'app/logs']
-" call unite#filters#matcher_default#use(['matcher_fuzzy'])
 
 set wildignore+=*.psd,*.doc,*.docx,*.xlsx
 set wildignore+=*/vendor/**
