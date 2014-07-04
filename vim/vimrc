@@ -253,6 +253,7 @@ let g:airline_powerline_fonts = 0
 
 "ctrl-p
 let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:10'
+let g:ctrlp_working_path_mode = 0
 noremap <C-A> :CtrlPBuffer<CR>
 
 set wildignore+=*.psd,*.doc,*.docx,*.xlsx
