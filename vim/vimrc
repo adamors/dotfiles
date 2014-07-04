@@ -141,6 +141,15 @@ function! SaveProper()
     :update " write to disk
 endfunction
 
+function! GitSearch()
+    let query = input('Search for: ')
+    if !empty(query)
+        execute ":Ggrep " . query . " -- '*.*'"
+    endif
+endfunction
+
+nnoremap <space>s :call GitSearch()<cr>
+
 " keyboard remaps
 let mapleader = ","
 inoremap jk <esc>
