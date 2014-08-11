@@ -47,13 +47,16 @@ Bundle 'docteurklein/php-getter-setter.vim'
 Bundle 'sumpygump/php-documentor-vim'
 Bundle 'airblade/vim-gitgutter'
 Bundle 'tpope/vim-markdown'
+Bundle 'godlygeek/tabular'
+Bundle 'rodjek/vim-puppet'
+Bundle 'vim-scripts/taglist.vim'
 
 "Bundle 'Lokaltog/vim-easymotion'
 "Bundle 'Shougo/neosnippet'
 "Bundle 'Yggdroot/indentLine'
 "Bundle 'terryma/vim-multiple-cursors'
 "Bundle 'stephpy/vim-php-cs-fixer'
-"Bundle 'vim-scripts/Conque-Shell'
+Bundle 'rosenfeld/conque-term'
 "Bundle 'm2mdas/phpcomplete-extended'
 "Bundle 'm2mdas/phpcomplete-extended-laravel'
 
@@ -157,6 +160,7 @@ nnoremap <silent> <C-s> :call SaveProper()<CR>
 nnoremap <space> 10jzz
 nnoremap <backspace> 10kzz
 nnoremap <leader>n :NERDTreeToggle<cr>
+nnoremap <leader>z :TlistToggle<cr>
 nnoremap <leader>N :NERDTreeFind<cr>
 nnoremap <C-tab> :bn<CR>
 nnoremap <C-S-tab> :bp<CR>
