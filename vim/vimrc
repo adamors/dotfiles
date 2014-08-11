@@ -13,7 +13,7 @@ else
     set rtp+=~/.vim/bundle/vundle/
     call vundle#rc()
     if has("gui_macvim")
-        set guifont=DejaVu\ Sans\ Mono:h13
+        set guifont=DejaVu\ Sans\ Mono:h15
      else
         set guifont=DejaVu\ Sans\ Mono\ 15
      endif
