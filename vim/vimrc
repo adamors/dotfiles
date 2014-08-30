@@ -250,6 +250,9 @@ let g:indentLine_char ='⁝'
 " javascript libraries
 let g:used_javascript_libs = 'underscore,angularjs,jquery'
 
+" nerdtree
+let NERDTreeShowHidden=1
+
 " airline
 let g:airline_left_sep=''
 let g:airline_right_sep=''
