@@ -103,7 +103,7 @@ set timeoutlen=250  " Time to wait after ESC (default causes an annoying delay)
 set cursorline
 
 " Formatting
-set tabstop=4  " Tabs are 2 spaces
+set tabstop=4  " Tabs are 4 spaces
 set shiftwidth=4  " Tabs under smart indent
 set expandtab
 set smarttab
