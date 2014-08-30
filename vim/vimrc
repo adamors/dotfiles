@@ -33,6 +33,7 @@ else
     Bundle 'Shougo/neocomplcache.vim'
 endif
 Bundle 'mattn/emmet-vim'
+Bundle 'mattn/webapi-vim'
 Bundle 'scrooloose/syntastic'
 Bundle 'othree/javascript-libraries-syntax.vim'
 if has('python')
@@ -234,6 +235,7 @@ if has('conceal')
 endif
 " emmet
 let g:user_emmet_leader_key = '<c-tab>'
+let g:user_emmet_settings = webapi#json#decode(join(readfile(expand('~/dotfiles/vim/vim/snippets_custom.json')), "\n"))
 
 " indentline
 let g:indentLine_color_gui = '#282a2e'
