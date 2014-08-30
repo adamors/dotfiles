@@ -13,7 +13,7 @@ else
     set rtp+=~/.vim/bundle/vundle/
     call vundle#rc()
     if has("gui_macvim")
-        set guifont=DejaVu\ Sans\ Mono:h13
+        set guifont=DejaVu\ Sans\ Mono:h15
      else
         set guifont=DejaVu\ Sans\ Mono\ 15
      endif
@@ -22,7 +22,6 @@ endif
 call vundle#rc()
 Bundle 'gmarik/vundle'
 Bundle 'tpope/vim-fugitive'
-Bundle 'Shougo/vimproc'
 Bundle 'kien/ctrlp.vim'
 Bundle 'bling/vim-airline'
 Bundle 'scrooloose/nerdtree'
@@ -50,13 +49,16 @@ Bundle 'sumpygump/php-documentor-vim'
 Bundle 'airblade/vim-gitgutter'
 Bundle 'tpope/vim-markdown'
 Bundle 'tpope/vim-rails'
+Bundle 'godlygeek/tabular'
+Bundle 'rodjek/vim-puppet'
+Bundle 'vim-scripts/taglist.vim'
 
 "Bundle 'Lokaltog/vim-easymotion'
 "Bundle 'Shougo/neosnippet'
 "Bundle 'Yggdroot/indentLine'
 "Bundle 'terryma/vim-multiple-cursors'
 "Bundle 'stephpy/vim-php-cs-fixer'
-"Bundle 'vim-scripts/Conque-Shell'
+Bundle 'rosenfeld/conque-term'
 "Bundle 'm2mdas/phpcomplete-extended'
 "Bundle 'm2mdas/phpcomplete-extended-laravel'
 
@@ -110,6 +112,8 @@ set smarttab
 set cindent
 set autoindent
 
+let s:tab_sensitive_filetypes = ['make']
+
 set bs=2  " Backspace over everything in insert mode
 set nocp incsearch
 set colorcolumn=80
@@ -131,15 +135,17 @@ set mat=5  " Bracket blinking.
 " Display extra whitespace
 set list listchars=tab:»·,trail:·
 
-
 set cmdheight=1
 set noshowmode " hide original status line because of airline
 set laststatus=2  " Always show status line.
 
 function! SaveProper()
-    :set et| retab " change indent to spaces and retab
+    let current_filetype = &filetype
+    if (index(s:tab_sensitive_filetypes, current_filetype) < 0)
+        :%s/\s\+$//e " delete trailing whitespace
+        :set et| retab " change indent to spaces and retab
+    endif
     :set ff=unix " set line endings to unix
-    :%s/\s\+$//e " delete trailing whitespace
     :update " write to disk
 endfunction
 
@@ -160,6 +166,7 @@ nnoremap <silent> <C-s> :call SaveProper()<CR>
 nnoremap <space> 10jzz
 nnoremap <backspace> 10kzz
 nnoremap <leader>n :NERDTreeToggle<cr>
+nnoremap <leader>z :TlistToggle<cr>
 nnoremap <leader>N :NERDTreeFind<cr>
 nnoremap <C-tab> :bn<CR>
 nnoremap <C-S-tab> :bp<CR>
@@ -256,6 +263,9 @@ let g:indentLine_char ='⁝'
 " javascript libraries
 let g:used_javascript_libs = 'underscore,angularjs,jquery'
 
+" nerdtree
+let NERDTreeShowHidden=1
+
 " airline
 let g:airline_left_sep=''
 let g:airline_right_sep=''
@@ -312,6 +322,12 @@ au BufRead,BufNewFile *.php nnoremap <buffer> <leader>d :call PhpDoc()<CR>
 noremap <Leader>t :!ctags -f tags --languages=PHP -R<cr>
 " jump to definition
 noremap <Leader>f g<C-]>
+
+augroup filetype
+  au! BufRead,BufNewFile,BufEnter *Makefile*,*makefile*,*.mk set filetype=make
+augroup END
+" In Makefiles, don't expand tabs to spaces, since we need the actual tabs
+autocmd FileType make set noexpandtab
 
 "edit vimrc more easily
 command Vimrc :e ~/.vimrc
