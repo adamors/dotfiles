@@ -110,6 +110,8 @@ set smarttab
 set cindent
 set autoindent
 
+let s:tab_sensitive_filetypes = ['make']
+
 set bs=2  " Backspace over everything in insert mode
 set nocp incsearch
 set colorcolumn=80
@@ -131,15 +133,17 @@ set mat=5  " Bracket blinking.
 " Display extra whitespace
 set list listchars=tab:»·,trail:·
 
-
 set cmdheight=1
 set noshowmode " hide original status line because of airline
 set laststatus=2  " Always show status line.
 
 function! SaveProper()
-    :set et| retab " change indent to spaces and retab
+    let current_filetype = &filetype
+    if (index(s:tab_sensitive_filetypes, current_filetype) < 0)
+        :%s/\s\+$//e " delete trailing whitespace
+        :set et| retab " change indent to spaces and retab
+    endif
     :set ff=unix " set line endings to unix
-    :%s/\s\+$//e " delete trailing whitespace
     :update " write to disk
 endfunction
 
@@ -292,3 +296,9 @@ au BufRead,BufNewFile *.php nnoremap <buffer> <leader>d :call PhpDoc()<CR>
 noremap <Leader>t :!ctags -f tags --languages=PHP -R<cr>
 " jump to definition
 noremap <Leader>f g<C-]>
+
+augroup filetype
+  au! BufRead,BufNewFile,BufEnter *Makefile*,*makefile*,*.mk set filetype=make
+augroup END
+" In Makefiles, don't expand tabs to spaces, since we need the actual tabs
+autocmd FileType make set noexpandtab
