@@ -49,6 +49,7 @@ Bundle 'docteurklein/php-getter-setter.vim'
 Bundle 'sumpygump/php-documentor-vim'
 Bundle 'airblade/vim-gitgutter'
 Bundle 'tpope/vim-markdown'
+Bundle 'tpope/vim-rails'
 
 "Bundle 'Lokaltog/vim-easymotion'
 "Bundle 'Shougo/neosnippet'
@@ -206,9 +207,19 @@ else
 endif
 
 "autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType css,scss,less setlocal tabstop=2
+autocmd FileType css,scss,less setlocal shiftwidth=2
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType html,markdown setlocal tabstop=2
+autocmd FileType html,markdown setlocal shiftwidth=2
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType php setlocal omnifunc=javascriptcomplete#CompletePHP
+autocmd FileType ruby,eruby setlocal tabstop=2
+autocmd FileType ruby,eruby setlocal shiftwidth=2
+autocmd FileType ruby,eruby setlocal omnifunc=rubycomplete#Complete
+autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
+autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
+autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
 
 " neosnippet
 " Plugin key-mappings.
@@ -263,11 +274,21 @@ set wildignore+=*/vendor/**
 set wildignore+=*/node_modules/**
 "set wildignore+=*/bower_components/**
 
+let g:mta_filetypes = {
+    \ 'html' : 1,
+    \ 'xhtml' : 1,
+    \ 'xml' : 1,
+    \ 'jinja' : 1,
+    \ 'eruby' : 1,
+    \ 'twig' : 1,
+    \}
+
 " gvim specific
 set mousehide  " Hide mouse after chars typed
 set mouse=a  " Mouse in all modesc
-set guioptions-=m "Hide toolbar
-set guioptions-=T "Hide menubar
+"set guioptions-=m "Hide toolbar
+"set guioptions-=T "Hide menubar
+set guioptions='' "Hide everything
 
 " MiniBufExpl Colors
 hi MBENormal               guifg=#808080 guibg=fg
