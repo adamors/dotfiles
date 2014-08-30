@@ -312,3 +312,6 @@ au BufRead,BufNewFile *.php nnoremap <buffer> <leader>d :call PhpDoc()<CR>
 noremap <Leader>t :!ctags -f tags --languages=PHP -R<cr>
 " jump to definition
 noremap <Leader>f g<C-]>
+
+"edit vimrc more easily
+command Vimrc :e ~/.vimrc
