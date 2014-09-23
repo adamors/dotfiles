@@ -204,12 +204,16 @@ nnoremap <silent> <leader>d :Hdownload<CR>
 
 " neocomplcache
 if has('lua')
+    "if !exists('g:neocomplete#force_omni_input_patterns')
+    "    let g:neocomplete#force_omni_input_patterns = {}
+    "endif
+    "let g:neocomplete#force_omni_input_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
     let g:acp_enableAtStartup = 0
     let g:neocomplete#enable_at_startup = 1
     let g:neocomplete#enable_smart_case = 1
+    inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
     let g:neocomplete#max_list = 10
     let g:neocomplete#sources#syntax#min_keyword_length = 3
-    inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 else
     let g:neocomplcache_enable_at_startup = 1
     let g:neocomplcache_max_list = 10
@@ -226,7 +230,8 @@ autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType php setlocal omnifunc=javascriptcomplete#CompletePHP
 autocmd FileType ruby,eruby setlocal tabstop=2
 autocmd FileType ruby,eruby setlocal shiftwidth=2
-autocmd FileType ruby,eruby setlocal omnifunc=rubycomplete#Complete
+"autocmd FileType ruby,eruby setlocal omnifunc=rubycomplete#Complete
+autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
 autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
 autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
 autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
