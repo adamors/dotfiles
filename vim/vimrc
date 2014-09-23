@@ -52,6 +52,9 @@ Bundle 'tpope/vim-rails'
 Bundle 'godlygeek/tabular'
 Bundle 'rodjek/vim-puppet'
 Bundle 'vim-scripts/taglist.vim'
+Bundle 'jelera/vim-javascript-syntax'
+Bundle 'pangloss/vim-javascript'
+Bundle 'Raimondi/delimitMate'
 
 "Bundle 'Lokaltog/vim-easymotion'
 "Bundle 'Shougo/neosnippet'
@@ -261,7 +264,7 @@ let g:indentLine_char ='⁝'
 " let g:indentLine_char = '│'
 
 " javascript libraries
-let g:used_javascript_libs = 'underscore,angularjs,jquery'
+let g:used_javascript_libs = 'underscore,angularjs,jquery,requirejs'
 
 " nerdtree
 let NERDTreeShowHidden=1
@@ -282,7 +285,7 @@ noremap <C-A> :CtrlPBuffer<CR>
 set wildignore+=*.psd,*.doc,*.docx,*.xlsx
 set wildignore+=*/vendor/**
 set wildignore+=*/node_modules/**
-"set wildignore+=*/bower_components/**
+set wildignore+=*/bower_components/**
 
 let g:mta_filetypes = {
     \ 'html' : 1,
@@ -331,3 +334,7 @@ autocmd FileType make set noexpandtab
 
 "edit vimrc more easily
 command Vimrc :e ~/.vimrc
+set completeopt-=preview
+
+imap <C-c> <CR><Esc>O
+imap <C-e> <Esc>A
