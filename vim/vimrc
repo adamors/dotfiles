@@ -24,6 +24,7 @@ Bundle 'gmarik/vundle'
 Bundle 'tpope/vim-fugitive'
 Bundle 'kien/ctrlp.vim'
 Bundle 'bling/vim-airline'
+Bundle 'ap/vim-buftabline'
 Bundle 'scrooloose/nerdtree'
 Bundle 'hesselbom/vim-hsftp'
 if has('lua')
@@ -35,9 +36,7 @@ Bundle 'mattn/emmet-vim'
 Bundle 'mattn/webapi-vim'
 Bundle 'scrooloose/syntastic'
 Bundle 'othree/javascript-libraries-syntax.vim'
-if has('python')
-    Bundle 'Valloric/MatchTagAlways'
-endif
+Bundle 'Valloric/MatchTagAlways'
 "Bundle 'fholgado/minibufexpl.vim'
 Bundle 'evidens/vim-twig'
 Bundle 'arnaud-lb/vim-php-namespace'
@@ -55,13 +54,15 @@ Bundle 'vim-scripts/taglist.vim'
 Bundle 'jelera/vim-javascript-syntax'
 Bundle 'pangloss/vim-javascript'
 Bundle 'Raimondi/delimitMate'
+Bundle 'editorconfig/editorconfig-vim'
+Bundle 'rking/ag.vim'
 
 "Bundle 'Lokaltog/vim-easymotion'
 "Bundle 'Shougo/neosnippet'
 "Bundle 'Yggdroot/indentLine'
 "Bundle 'terryma/vim-multiple-cursors'
 "Bundle 'stephpy/vim-php-cs-fixer'
-Bundle 'rosenfeld/conque-term'
+"Bundle 'rosenfeld/conque-term'
 "Bundle 'm2mdas/phpcomplete-extended'
 "Bundle 'm2mdas/phpcomplete-extended-laravel'
 
@@ -155,7 +156,7 @@ endfunction
 function! GitSearch()
     let query = input('Search for: ')
     if !empty(query)
-        execute ":Ggrep " . query . " -- '*.*'"
+        execute ":Ag " . query
     endif
 endfunction
 
@@ -224,8 +225,8 @@ endif
 autocmd FileType css,scss,less setlocal tabstop=2
 autocmd FileType css,scss,less setlocal shiftwidth=2
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType html,markdown setlocal tabstop=2
-autocmd FileType html,markdown setlocal shiftwidth=2
+autocmd FileType html,markdown,yaml setlocal tabstop=2
+autocmd FileType html,markdown,yaml setlocal shiftwidth=2
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType php setlocal omnifunc=javascriptcomplete#CompletePHP
 autocmd FileType ruby,eruby setlocal tabstop=2
@@ -278,9 +279,9 @@ let NERDTreeShowHidden=1
 let g:airline_left_sep=''
 let g:airline_right_sep=''
 let g:airline_powerline_fonts = 0
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#fnamemod = ':t'
-let g:airline#extensions#tabline#buffer_nr_show = 1
+"let g:airline#extensions#tabline#enabled = 1
+"let g:airline#extensions#tabline#fnamemod = ':t'
+"let g:airline#extensions#tabline#buffer_nr_show = 1
 
 "ctrl-p
 let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:10'
@@ -299,6 +300,7 @@ let g:mta_filetypes = {
     \ 'jinja' : 1,
     \ 'eruby' : 1,
     \ 'twig' : 1,
+    \ 'erb'  : 1,
     \}
 
 " gvim specific
@@ -338,7 +340,7 @@ augroup END
 autocmd FileType make set noexpandtab
 
 "edit vimrc more easily
-command Vimrc :e ~/.vimrc
+"command Vimrc :e ~/.vimrc
 set completeopt-=preview
 
 imap <C-c> <CR><Esc>O
