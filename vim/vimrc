@@ -55,6 +55,7 @@ Bundle 'vim-scripts/taglist.vim'
 Bundle 'jelera/vim-javascript-syntax'
 Bundle 'pangloss/vim-javascript'
 Bundle 'Raimondi/delimitMate'
+Bundle 'briancollins/vim-jst'
 
 "Bundle 'Lokaltog/vim-easymotion'
 "Bundle 'Shougo/neosnippet'
@@ -224,8 +225,8 @@ endif
 autocmd FileType css,scss,less setlocal tabstop=2
 autocmd FileType css,scss,less setlocal shiftwidth=2
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType html,markdown setlocal tabstop=2
-autocmd FileType html,markdown setlocal shiftwidth=2
+autocmd FileType html,markdown,yaml setlocal tabstop=2
+autocmd FileType html,markdown,yaml setlocal shiftwidth=2
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType php setlocal omnifunc=javascriptcomplete#CompletePHP
 autocmd FileType ruby,eruby setlocal tabstop=2
@@ -281,6 +282,8 @@ let g:airline_powerline_fonts = 0
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline#extensions#tabline#buffer_nr_show = 1
+let g:airline#extensions#hunks#enabled = 0
+let g:airline_section_warning = airline#section#create(['whitespace'])
 
 "ctrl-p
 let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:10'
@@ -288,9 +291,9 @@ let g:ctrlp_working_path_mode = 0
 noremap <C-A> :CtrlPBuffer<CR>
 
 set wildignore+=*.psd,*.doc,*.docx,*.xlsx
-set wildignore+=*/vendor/**
+" set wildignore+=*/vendor/**
 set wildignore+=*/node_modules/**
-set wildignore+=*/bower_components/**
+"set wildignore+=*/bower_components/**
 
 let g:mta_filetypes = {
     \ 'html' : 1,
