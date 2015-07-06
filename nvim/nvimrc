@@ -25,6 +25,7 @@ Plug 'Raimondi/delimitMate'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'rking/ag.vim'
 Plug 'vim-scripts/taglist.vim'
+Plug 'kassio/neoterm'
 call plug#end()
 
 "Bundle 'Shougo/neocomplete.vim'
@@ -80,6 +81,9 @@ set cmdheight=1
 set noshowmode
 set laststatus=2
 set completeopt-=preview
+set mousehide
+set mouse=a
+
 if has('conceal')
   set conceallevel=2 concealcursor=i
 endif
