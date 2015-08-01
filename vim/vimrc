@@ -26,6 +26,7 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'rking/ag.vim'
 Plug 'vim-scripts/taglist.vim'
 Plug 'junegunn/vim-easy-align'
+Plug 'hesselbom/vim-hsftp'
 call plug#end()
 
 "Bundle 'docteurklein/php-getter-setter.vim'
@@ -124,6 +125,7 @@ augroup filetype
   au! BufRead,BufNewFile,BufEnter *Makefile*,*makefile*,*.mk set filetype=make
 augroup END
 autocmd FileType make set noexpandtab
+autocmd Syntax * call matchadd('Todo',  '\W\zs\(TODO\|FIXME\|CHANGED\|XXX\|BUG\|HACK\)')
 let s:tab_sensitive_filetypes = ['make']
 
 set wildignore+=*.psd,*.doc,*.docx,*.xlsx
@@ -163,6 +165,7 @@ noremap q: <nop>
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 noremap <C-A> :CtrlPBuffer<CR>
 noremap <Leader>f g<C-]>
+nnoremap <silent> <leader>s :Hupload<CR>
 let g:acp_enableAtStartup = 0
 let g:neocomplete#enable_at_startup = 1
 let g:neocomplete#enable_smart_case = 1
