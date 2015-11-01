@@ -27,6 +27,7 @@ Plug 'rking/ag.vim'
 Plug 'vim-scripts/taglist.vim'
 Plug 'kassio/neoterm'
 Plug 'elzr/vim-json'
+Plug 'junegunn/vim-easy-align'
 call plug#end()
 
 "Bundle 'Shougo/neocomplete.vim'
@@ -112,6 +113,7 @@ endfunction
 
 :command FormatJson :call FormatJson()<CR>
 
+autocmd BufRead,BufNewFile *.js.erb set filetype=javascript
 autocmd FileType css,scss,less setlocal tabstop=2
 autocmd FileType css,scss,less setlocal shiftwidth=2
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
@@ -181,6 +183,7 @@ let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['html', 'tw
 let g:user_emmet_leader_key = '<c-a>'
 let g:user_emmet_settings = webapi#json#decode(join(readfile(expand('~/dotfiles/vim/vim/snippets_custom.json')), "\n"))
 let g:used_javascript_libs = 'underscore,angularjs,jquery,requirejs'
+let g:syntastic_javascript_checkers = ['jshint', 'jscs']
 let NERDTreeShowHidden=1
 let g:airline_left_sep=''
 let g:airline_right_sep=''
