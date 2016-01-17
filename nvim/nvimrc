@@ -12,7 +12,8 @@ Plug 'scrooloose/nerdtree'
 Plug 'Shougo/neocomplcache.vim'
 Plug 'mattn/webapi-vim'
 Plug 'mattn/emmet-vim'
-Plug 'scrooloose/syntastic'
+"Plug 'scrooloose/syntastic'
+Plug 'benekastah/neomake'
 Plug 'othree/javascript-libraries-syntax.vim'
 Plug 'Valloric/MatchTagAlways'
 Plug 'othree/html5-syntax.vim'
@@ -132,6 +133,7 @@ augroup filetype
 augroup END
 autocmd FileType make set noexpandtab
 autocmd Syntax * call matchadd('Todo',  '\W\zs\(TODO\|FIXME\|CHANGED\|XXX\|BUG\|HACK\)')
+autocmd! BufWritePost * Neomake
 let s:tab_sensitive_filetypes = ['make']
 
 set wildignore+=*.psd,*.doc,*.docx,*.xlsx
@@ -166,6 +168,10 @@ nnoremap <leader>c :clo<CR> " close current window
 nnoremap <leader>v :vs<CR> " vertical split
 nnoremap <leader>h :vertical resize -5<cr>
 nnoremap <leader>l :vertical resize +5<cr>
+nnoremap <leader>gs :Gstatus<cr>
+nnoremap <leader>gw :Gwrite<cr>
+nnoremap <leader>gc :GCommit<cr>
+nnoremap <leader>gp :Gpush<cr>
 imap <c-l> <space>=><space>
 imap <c-b> ->
 imap <C-c> <CR><Esc>O
@@ -179,11 +185,14 @@ vnoremap // y/<C-R>"<CR>
 let g:neocomplcache_enable_at_startup = 1
 let g:neocomplcache_max_list = 10
 let g:neocomplcache_auto_completion_start_length = 3
-let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['html', 'twig', 'css', 'scss', ''] }
 let g:user_emmet_leader_key = '<c-a>'
 let g:user_emmet_settings = webapi#json#decode(join(readfile(expand('~/dotfiles/vim/vim/snippets_custom.json')), "\n"))
 let g:used_javascript_libs = 'underscore,angularjs,jquery,requirejs'
-let g:syntastic_javascript_checkers = ['jshint', 'jscs']
+" let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['html', 'twig', 'css', 'scss', ''] }
+" let g:syntastic_javascript_checkers = ['jshint', 'jscs']
+let g:neomake_javascript_enabled_makers = ['jshint', 'jscs']
+let g:neomake_ruby_enabled_makers = ['rubocop']
+
 let NERDTreeShowHidden=1
 let g:airline_left_sep=''
 let g:airline_right_sep=''
