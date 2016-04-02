@@ -27,12 +27,12 @@ Plug 'rking/ag.vim'
 Plug 'vim-scripts/taglist.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'hesselbom/vim-hsftp'
+Plug 'evidens/vim-twig'
 call plug#end()
 
 "Bundle 'docteurklein/php-getter-setter.vim'
 "Bundle 'sumpygump/php-documentor-vim'
 "Bundle 'godlygeek/tabular'
-"Bundle 'evidens/vim-twig'
 "Bundle 'arnaud-lb/vim-php-namespace'
 "Bundle 'xsbeats/vim-blade'
 "Bundle 'groenewege/vim-less'

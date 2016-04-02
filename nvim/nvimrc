@@ -122,8 +122,8 @@ autocmd FileType html,markdown,yaml setlocal tabstop=2
 autocmd FileType html,markdown,yaml setlocal shiftwidth=2
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType php setlocal omnifunc=javascriptcomplete#CompletePHP
-autocmd FileType ruby,eruby setlocal tabstop=2
-autocmd FileType ruby,eruby setlocal shiftwidth=2
+" autocmd FileType ruby,eruby setlocal tabstop=2
+" autocmd FileType ruby,eruby setlocal shiftwidth=2
 autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
 autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
 autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
@@ -172,6 +172,7 @@ nnoremap <leader>gs :Gstatus<cr>
 nnoremap <leader>gw :Gwrite<cr>
 nnoremap <leader>gc :GCommit<cr>
 nnoremap <leader>gp :Gpush<cr>
+nnoremap <leader>gl :silent! Glog<CR>:bot copen<CR>
 imap <c-l> <space>=><space>
 imap <c-b> ->
 imap <C-c> <CR><Esc>O
