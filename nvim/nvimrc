@@ -124,11 +124,11 @@ function! GetVisual() range
     return selection
 endfunction
 
-function! FormatJson()
+function! FormatJsonFunction()
     :%!python -m json.tool
 endfunction
 
-:command FormatJson :call FormatJson()<CR>
+:command! FormatJson :call FormatJsonFunction()<CR>
 
 autocmd BufRead,BufNewFile *.js.erb set filetype=javascript
 autocmd FileType css,scss,less setlocal tabstop=2
