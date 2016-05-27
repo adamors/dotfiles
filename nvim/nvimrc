@@ -108,6 +108,22 @@ function! GitSearch()
     endif
 endfunction
 
+function! GitSearchForWord(query)
+    execute ":Ag " . a:query
+endfunction
+
+function! GetVisual() range
+    let reg_save = getreg('"')
+    let regtype_save = getregtype('"')
+    let cb_save = &clipboard
+    set clipboard&
+    normal! ""gvy
+    let selection = getreg('"')
+    call setreg('"', reg_save, regtype_save)
+    let &clipboard = cb_save
+    return selection
+endfunction
+
 function! FormatJson()
     :%!python -m json.tool
 endfunction
@@ -122,8 +138,8 @@ autocmd FileType html,markdown,yaml,ruby setlocal tabstop=2
 autocmd FileType html,markdown,yaml,ruby setlocal shiftwidth=2
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType php setlocal omnifunc=javascriptcomplete#CompletePHP
-" autocmd FileType ruby,eruby setlocal tabstop=2
-" autocmd FileType ruby,eruby setlocal shiftwidth=2
+autocmd FileType ruby,eruby setlocal tabstop=2
+autocmd FileType ruby,eruby setlocal shiftwidth=2
 autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
 autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
 autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
@@ -143,7 +159,9 @@ set wildignore+=*/bower_components/**
 
 let mapleader = ","
 inoremap jk <esc>
-nnoremap <space>s :call GitSearch()<cr>
+nnoremap <space>is :call GitSearch()<cr>
+nnoremap <space>s :call GitSearchForWord("<cword>")<cr>
+vnoremap <space>s :call GitSearchForWord(GetVisual())<CR>
 nnoremap <silent> <C-s> :call SaveProper()<CR>
 nnoremap <space> 10jzz
 nnoremap <leader>n :NERDTreeToggle<cr>
