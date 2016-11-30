@@ -1,47 +1,31 @@
 if $SHELL =~ 'bin/fish'
     set shell=/bin/sh
 endif
+
 set nocompatible
 
 call plug#begin('~/.nvim/plugged')
 Plug 'tpope/vim-fugitive'
-Plug 'kien/ctrlp.vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 Plug 'bling/vim-airline'
-Plug 'ap/vim-buftabline'
+Plug 'morhetz/gruvbox'
 Plug 'scrooloose/nerdtree'
-Plug 'Shougo/neocomplcache.vim'
-Plug 'mattn/webapi-vim'
-Plug 'mattn/emmet-vim'
-"Plug 'scrooloose/syntastic'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'benekastah/neomake'
-Plug 'othree/javascript-libraries-syntax.vim'
-Plug 'Valloric/MatchTagAlways'
-Plug 'othree/html5-syntax.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-markdown'
 Plug 'tpope/vim-rails'
-Plug 'jelera/vim-javascript-syntax'
-Plug 'pangloss/vim-javascript'
-Plug 'Raimondi/delimitMate'
 Plug 'editorconfig/editorconfig-vim'
-Plug 'rking/ag.vim'
-Plug 'vim-scripts/taglist.vim'
 Plug 'kassio/neoterm'
 Plug 'elzr/vim-json'
 Plug 'junegunn/vim-easy-align'
 call plug#end()
 
-"Bundle 'Shougo/neocomplete.vim'
-"Bundle 'docteurklein/php-getter-setter.vim'
-"Bundle 'sumpygump/php-documentor-vim'
-"Bundle 'godlygeek/tabular'
-"Bundle 'rodjek/vim-puppet'
-"Bundle 'evidens/vim-twig'
-"Bundle 'arnaud-lb/vim-php-namespace'
-"Bundle 'xsbeats/vim-blade'
-"Bundle 'groenewege/vim-less'
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
 set encoding=utf8
+set regexpengine=1
 set nobackup
 set nowb
 set noswapfile
@@ -49,7 +33,7 @@ set vb
 syntax enable
 set t_Co=256
 set background=dark
-colorscheme Tomorrow-Night
+colorscheme gruvbox
 try
     set undodir=~/.vim/undodir
         set undofile
@@ -61,9 +45,9 @@ set history=256
 set nu
 set nowrap
 set timeoutlen=250
-set cursorline
-set tabstop=4
-set shiftwidth=4
+set nocursorline
+set tabstop=2
+set shiftwidth=2
 set expandtab
 set smarttab
 set cindent
@@ -108,7 +92,7 @@ endfunction
 
 function! GitSearchForWord(query)
     if !empty(a:query)
-        execute ":Ag \"" . a:query . "\""
+        execute ":Ag " . a:query
     endif
 endfunction
 
@@ -130,26 +114,21 @@ endfunction
 
 :command! FormatJson :call FormatJsonFunction()<CR>
 
-autocmd BufRead,BufNewFile *.js.erb set filetype=javascript
-autocmd FileType css,scss,less setlocal tabstop=2
-autocmd FileType css,scss,less setlocal shiftwidth=2
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType html,markdown,yaml,ruby setlocal tabstop=2
-autocmd FileType html,markdown,yaml,ruby setlocal shiftwidth=2
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType php setlocal omnifunc=javascriptcomplete#CompletePHP
-autocmd FileType ruby,eruby setlocal tabstop=2
-autocmd FileType ruby,eruby setlocal shiftwidth=2
-autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
-autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
-autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
-autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
-augroup filetype
-  au! BufRead,BufNewFile,BufEnter *Makefile*,*makefile*,*.mk set filetype=make
+augroup vimrc_autocmd
+    autocmd!
+    autocmd BufRead,BufNewFile *.js.erb set filetype=javascript
+    autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+    autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+    autocmd FileType php setlocal omnifunc=javascriptcomplete#CompletePHP
+    autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+    autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
+    autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
+    autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
+    autocmd FileType ruby setlocal re=1 foldmethod=manual
+    autocmd FileType make set noexpandtab
+    autocmd Syntax * call matchadd('Todo',  '\W\zs\(TODO\|FIXME\|CHANGED\|XXX\|BUG\|HACK\)')
+    autocmd! BufWritePost * Neomake
 augroup END
-autocmd FileType make set noexpandtab
-autocmd Syntax * call matchadd('Todo',  '\W\zs\(TODO\|FIXME\|CHANGED\|XXX\|BUG\|HACK\)')
-autocmd! BufWritePost * Neomake
 let s:tab_sensitive_filetypes = ['make']
 
 set wildignore+=*.psd,*.doc,*.docx,*.xlsx
@@ -160,7 +139,7 @@ set wildignore+=*/bower_components/**
 let mapleader = ","
 inoremap jk <esc>
 nnoremap <space>is :call GitSearch()<cr>
-nnoremap <space>s :call GitSearchForWord("<cword>")<cr>
+nnoremap <space>s :Ag <C-R><C-W><cr>
 vnoremap <space>s :call GitSearchForWord(GetVisual())<CR>
 nnoremap <silent> <C-s> :call SaveProper()<CR>
 nnoremap <space> 10jzz
@@ -198,35 +177,25 @@ imap <C-e> <Esc>A
 nnoremap Q <nop>
 noremap q: <nop>
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-noremap <C-A> :CtrlPBuffer<CR>
+nnoremap <C-P> :Files<CR>
+noremap <C-A> :Buffers<CR>
 noremap <Leader>f g<C-]>
 vnoremap // y/<C-R>"<CR>
-let g:neocomplcache_enable_at_startup = 1
-let g:neocomplcache_max_list = 10
-let g:neocomplcache_auto_completion_start_length = 3
-let g:user_emmet_leader_key = '<c-a>'
-let g:user_emmet_settings = webapi#json#decode(join(readfile(expand('~/dotfiles/vim/vim/snippets_custom.json')), "\n"))
-let g:used_javascript_libs = 'underscore,angularjs,jquery,requirejs'
-" let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['html', 'twig', 'css', 'scss', ''] }
-" let g:syntastic_javascript_checkers = ['jshint', 'jscs']
-let g:neomake_javascript_enabled_makers = ['jshint', 'jscs']
+
+let g:deoplete#enable_at_startup = 1
+let g:deoplete_max_list = 10
+let g:deoplete_auto_completion_start_length = 3
+
 let g:neomake_ruby_enabled_makers = ['rubocop']
 
 let NERDTreeShowHidden=1
+
 let g:airline_left_sep=''
 let g:airline_right_sep=''
 let g:airline_powerline_fonts = 0
-let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:10'
-let g:ctrlp_working_path_mode = 0
-let g:mta_filetypes = { 'html' : 1, 'xhtml' : 1, 'xml' : 1, 'jinja' : 1, 'eruby' : 1, 'twig' : 1, 'erb'  : 1, }
-let g:vim_json_syntax_conceal = 0
+let g:airline_theme='gruvbox'
+let g:airline#extensions#tabline#enabled = 1
 
-" inoremap <Leader>u <C-O>:call PhpInsertUse()<CR>
-" noremap <Leader>u :call PhpInsertUse()<CR>
-" inoremap <Leader>e <C-O>:call PhpExpandClass()<CR>
-" noremap <Leader>e :call PhpExpandClass()<CR>
-" let g:phpcomplete_index_composer_command = 'composer'
-" noremap <Leader>b :InsertBothGetterSetter<CR>
-" noremap <Leader>g :InsertGetterOnly<CR>
-" au BufRead,BufNewFile *.php nnoremap <buffer> <leader>d :call PhpDoc()<CR>
-" noremap <Leader>t :!ctags -f tags --languages=PHP -R<cr>
+let g:mta_filetypes = { 'html' : 1, 'xhtml' : 1, 'xml' : 1, 'jinja' : 1, 'eruby' : 1, 'twig' : 1, 'erb'  : 1, }
+
+let g:vim_json_syntax_conceal = 0
