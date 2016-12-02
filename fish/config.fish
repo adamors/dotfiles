@@ -16,3 +16,5 @@ set PATH /usr/local/bin $PATH
 #end
 set -gx RBENV_ROOT /usr/local/var/rbenv
 . (rbenv init -|psub)
+
+set PATH /Applications/Postgres.app/Contents/Versions/latest/bin $PATH
