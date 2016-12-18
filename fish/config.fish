@@ -7,6 +7,7 @@ set fish_theme clearance
 
 set PATH /usr/local/Cellar/python/2.7.8_1/bin $PATH
 set PATH /usr/local/bin $PATH
+set PATH /Applications/Postgres.app/Contents/Versions/latest/bin $PATH
 
 # Load oh-my-fish configuration.
 . $fish_path/oh-my-fish.fish
