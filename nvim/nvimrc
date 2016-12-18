@@ -9,7 +9,10 @@ Plug 'tpope/vim-fugitive'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'bling/vim-airline'
-Plug 'morhetz/gruvbox'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'ap/vim-buftabline'
+Plug 'junegunn/gv.vim'
+Plug 'tpope/vim-endwise'
 Plug 'scrooloose/nerdtree'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'benekastah/neomake'
@@ -33,7 +36,7 @@ set vb
 syntax enable
 set t_Co=256
 set background=dark
-colorscheme gruvbox
+colorscheme Tomorrow-Night
 try
     set undodir=~/.vim/undodir
         set undofile
@@ -142,7 +145,7 @@ nnoremap <space>is :call GitSearch()<cr>
 nnoremap <space>s :Ag <C-R><C-W><cr>
 vnoremap <space>s :call GitSearchForWord(GetVisual())<CR>
 nnoremap <silent> <C-s> :call SaveProper()<CR>
-nnoremap <space> 10jzz
+nnoremap <space> :noh<cr>
 nnoremap <leader>n :NERDTreeToggle<cr>
 nnoremap <leader>z :TlistToggle<cr>
 nnoremap <leader>N :NERDTreeFind<cr>
@@ -193,8 +196,8 @@ let NERDTreeShowHidden=1
 let g:airline_left_sep=''
 let g:airline_right_sep=''
 let g:airline_powerline_fonts = 0
-let g:airline_theme='gruvbox'
-let g:airline#extensions#tabline#enabled = 1
+let g:airline_theme='tomorrow'
+let g:airline#extensions#tabline#enabled = 0
 
 let g:mta_filetypes = { 'html' : 1, 'xhtml' : 1, 'xml' : 1, 'jinja' : 1, 'eruby' : 1, 'twig' : 1, 'erb'  : 1, }
 
