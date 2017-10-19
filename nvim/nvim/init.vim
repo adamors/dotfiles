@@ -1,1 +1,1 @@
-/Users/ors/.nvimrc
+/Users/adam.kovacs/dotfiles/nvim/nvimrc

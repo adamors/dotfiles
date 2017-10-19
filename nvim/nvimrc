@@ -10,12 +10,12 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'ap/vim-buftabline'
+" Plug 'ap/vim-buftabline'
 Plug 'junegunn/gv.vim'
 Plug 'tpope/vim-endwise'
 Plug 'scrooloose/nerdtree'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'benekastah/neomake'
+Plug 'neomake/neomake'
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-markdown'
 Plug 'tpope/vim-rails'
@@ -23,6 +23,7 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'kassio/neoterm'
 Plug 'elzr/vim-json'
 Plug 'junegunn/vim-easy-align'
+Plug 'shime/vim-livedown'
 call plug#end()
 
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
@@ -73,6 +74,7 @@ set laststatus=2
 set completeopt-=preview
 set mousehide
 set mouse=a
+filetype plugin on
 
 if has('conceal')
   set conceallevel=2 concealcursor=i
@@ -116,6 +118,15 @@ function! FormatJsonFunction()
 endfunction
 
 :command! FormatJson :call FormatJsonFunction()<CR>
+
+function! CopyMatches()
+    let hits = []
+    %s//\=len(add(hits, submatch(0))) ? submatch(0) : ''/ge
+    let reg = '"'
+    execute 'let @'.reg.' = join(hits, "\n") . "\n"'
+endfunction
+
+:command! YankMatches :call CopyMatches()<CR>
 
 augroup vimrc_autocmd
     autocmd!
@@ -202,3 +213,17 @@ let g:airline#extensions#tabline#enabled = 0
 let g:mta_filetypes = { 'html' : 1, 'xhtml' : 1, 'xml' : 1, 'jinja' : 1, 'eruby' : 1, 'twig' : 1, 'erb'  : 1, }
 
 let g:vim_json_syntax_conceal = 0
+let g:neoterm_shell='fish'
+let g:neoterm_position = 'horizontal'
+let g:neoterm_keep_term_open = 0
+let g:neoterm_autoinsert = 1
+
+" nnoremap <silent> <f10> :TREPLSendFile<cr>
+nnoremap <silent> <Leader>t  :Tnew<cr>
+nnoremap <silent> <Leader>r  :T dew rails c
+nnoremap <silent> <Leader>e :TREPLSendLine<cr>
+vnoremap <silent> <Leader>e :TREPLSendSelection<cr>
+
+" Useful maps
+" hide/close terminal
+nnoremap <silent> ,th :call neoterm#close()<cr>
