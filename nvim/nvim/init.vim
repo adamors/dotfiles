@@ -1,1 +1,0 @@
-/Users/adam.kovacs/dotfiles/nvim/nvimrc
