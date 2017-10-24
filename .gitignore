@@ -6,3 +6,5 @@ Icon
 .dropbox
 .netrwhist
 
+#nvim
+nvim/nvim/init.vim
