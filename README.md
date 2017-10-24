@@ -1,14 +1,15 @@
 Dotfiles
 =======
 
-Contains my dotfiles, mostly vim config files.
+Contains my dotfiles, mostly neovim config files.
 
 Install
 ======
 
-* symlink dotfiles/vim/vim to ~/.vim and dotfiles/vim/vimrc to ~/.vimrc
+* clone the repo
 
-* set up vundle with 
+    `git clone https://github.com/adamors/dotfiles`
 
-    `git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle`
+* run install script
 
+    `./dotfiles/install.sh`
