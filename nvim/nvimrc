@@ -10,6 +10,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'wakatime/vim-wakatime'
 " Plug 'ap/vim-buftabline'
 Plug 'junegunn/gv.vim'
 Plug 'tpope/vim-endwise'
@@ -24,6 +25,8 @@ Plug 'kassio/neoterm'
 Plug 'elzr/vim-json'
 Plug 'junegunn/vim-easy-align'
 Plug 'shime/vim-livedown'
+Plug 'tmhedberg/matchit'
+Plug 'ecomba/vim-ruby-refactoring'
 call plug#end()
 
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
