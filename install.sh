@@ -1,12 +1,24 @@
 #/bin/bash
 set -e
-echo 'installing neovim'
-echo -e "\e[32minstalling neovim\e[0m"
-mkdir -p ~/local
-wget -O - https://github.com/hotgloupi/nvim/releases/download/0.7/nvim-centos6.tgz | tar xjf - -C ~/local
-echo "PATH=~/local/bin:\$PATH" >> ~/.profile
+
+CONFIG_DIR="$HOME/.config"
+
+nvim_exists () {
+    command -v nvim > /dev/null 2>&1;
+}
+
+install_nvim () {
+  echo -e "\e[32minstalling neovim\e[0m"
+  mkdir -p $HOME/local
+  wget -O - https://github.com/hotgloupi/nvim/releases/download/0.8/nvim-centos6.tgz | tar xjf - -C $HOME/local
+  echo "PATH=~/local/bin:\$PATH" >> $HOME/.profile
+}
+
+if ! nvim_exists ; then
+  install_nvim
+fi
 
 echo -e "\e[32msetting up neovim config\e[0m"
-mkdir -p ~/.config
-[ -d ~/.config/nvim ] || ln -s $(pwd)/dotfiles/nvim/nvim ~/.config/nvim
-[ -e ~/.config/nvim/init.vim] || ln -s $(pwd)/dotfiles/nvim/nvimrc ~/.config/nvim/init.vim
+[ -d $CONFIG_DIR ] || mkdir $CONFIG_DIR
+[ -d $CONFIG_DIR/nvim ] || ln -s $HOME/dotfiles/nvim/nvim $CONFIG_DIR/nvim
+[ -e $CONFIG_DIR/nvim/init.vim ] || ln -s $HOME/dotfiles/nvim/nvimrc $CONFIG_DIR/nvim/init.vim
