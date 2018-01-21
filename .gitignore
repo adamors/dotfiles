@@ -8,3 +8,8 @@ Icon
 
 #nvim
 nvim/nvim/init.vim
+
+#fish
+fish/local_config.fish
+fish/fishd.*
+

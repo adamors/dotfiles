@@ -1,21 +1,12 @@
-# Path to your oh-my-fish.
-set fish_path $HOME/.oh-my-fish
 tic $TERM.ti
 
-# Theme
-set fish_theme clearance
+set my_aliases "$HOME/.config/fish/functions/aliases.fish"
+set my_local_config "$HOME/.config/fish/local_config.fish"
 
-set PATH /usr/local/Cellar/python/2.7.8_1/bin $PATH
-set PATH /usr/local/bin $PATH
-set PATH /Applications/Postgres.app/Contents/Versions/latest/bin $PATH
+source $my_aliases
 
-# Load oh-my-fish configuration.
-. $fish_path/oh-my-fish.fish
+if test -e $my_local_config
+    source $my_local_config
+end
 
-#if test -z $rvm_bin_path
-#exec bash --login -c "exec fish"
-#end
-set -gx RBENV_ROOT /usr/local/var/rbenv
-. (rbenv init -|psub)
-
-set PATH /Applications/Postgres.app/Contents/Versions/latest/bin $PATH
+set -Ux EDITOR nvim
