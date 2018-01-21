@@ -18,7 +18,20 @@ if ! nvim_exists ; then
   install_nvim
 fi
 
-echo -e "\e[32msetting up neovim config\e[0m"
+echo -e "\e[32mSetting up configuration\e[0m"
 [ -d $CONFIG_DIR ] || mkdir $CONFIG_DIR
-[ -d $CONFIG_DIR/nvim ] || ln -s $HOME/dotfiles/nvim/nvim $CONFIG_DIR/nvim
-[ -e $CONFIG_DIR/nvim/init.vim ] || ln -s $HOME/dotfiles/nvim/nvimrc $CONFIG_DIR/nvim/init.vim
+
+if [ -d $CONFIG_DIR/nvim ] ; then
+  echo -e "\e[32mFound existing NeoVim configuration\e[0m"
+else
+  echo -e "\e[32mSetting up configuration for NeoVim\e[0m"
+  ln -s $HOME/dotfiles/nvim/nvim $CONFIG_DIR/nvim
+  [ -e $CONFIG_DIR/nvim/init.vim ] || ln -s $HOME/dotfiles/nvim/nvimrc $CONFIG_DIR/nvim/init.vim
+fi
+
+if [ -d $CONFIG_DIR/fish ] ; then
+  echo -e "\e[32mFound existing configuration for Fish\e[0m"
+else
+  echo -e "\e[32mSetting up configuration for Fish\e[0m"
+  ln -s $HOME/dotfiles/fish/ $CONFIG_DIR/fish
+fi
