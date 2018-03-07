@@ -203,7 +203,7 @@ let g:deoplete#enable_at_startup = 1
 let g:deoplete_max_list = 10
 let g:deoplete_auto_completion_start_length = 3
 
-let g:neomake_ruby_enabled_makers = ['rubocop']
+let g:neomake_ruby_enabled_makers = ['rubocop', 'reek']
 
 let NERDTreeShowHidden=1
 
