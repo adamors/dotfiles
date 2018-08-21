@@ -191,7 +191,7 @@ imap <c-l> <space>=><space>
 imap <c-b> ->
 imap <C-c> <CR><Esc>O
 imap <C-e> <Esc>A
-nnoremap Q <nop>
+nnoremap Q :qa<CR>
 noremap q: <nop>
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 nnoremap <C-P> :Files<CR>
