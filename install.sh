@@ -8,10 +8,12 @@ nvim_exists () {
 }
 
 install_nvim () {
-  echo -e "\e[32minstalling neovim\e[0m"
-  mkdir -p $HOME/local
-  wget -O - https://github.com/hotgloupi/nvim/releases/download/0.8/nvim-centos6.tgz | tar xjf - -C $HOME/local
-  echo "PATH=~/local/bin:\$PATH" >> $HOME/.profile
+  sudo apt-get install -y python-dev python-pip python3-dev python3-pip
+  sudo apt-add-repository ppa:neovim-ppa/stable -y
+  sudo apt-get update
+  sudo apt-get install -y neovim
+  sudo pip3 install --upgrade pip
+  sudo pip3 install neovim
 }
 
 if ! nvim_exists ; then
