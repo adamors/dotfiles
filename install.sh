@@ -22,6 +22,7 @@ setup_nvim() {
     echo -e "\e[32mFound existing NeoVim configuration\e[0m"
   else
     echo -e "\e[32mSetting up configuration for NeoVim\e[0m"
+    curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     ln -s $HOME/dotfiles/nvim/nvim $CONFIG_DIR/nvim
     if [ ! -e $CONFIG_DIR/nvim/init.vim ] ; then
       ln -s $HOME/dotfiles/nvim/nvimrc $CONFIG_DIR/nvim/init.vim
