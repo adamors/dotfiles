@@ -5,28 +5,30 @@ endif
 set nocompatible
 
 call plug#begin('~/.nvim/plugged')
-Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
+Plug 'bling/vim-airline'
+Plug 'ecomba/vim-ruby-refactoring'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'elzr/vim-json'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'bling/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'wakatime/vim-wakatime'
-" Plug 'ap/vim-buftabline'
 Plug 'junegunn/gv.vim'
-Plug 'tpope/vim-endwise'
-Plug 'scrooloose/nerdtree'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'junegunn/vim-easy-align'
+Plug 'kassio/neoterm'
 Plug 'neomake/neomake'
-Plug 'airblade/vim-gitgutter'
+Plug 'scrooloose/nerdtree'
+Plug 'shime/vim-livedown'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'tmhedberg/matchit'
+Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-markdown'
 Plug 'tpope/vim-rails'
-Plug 'editorconfig/editorconfig-vim'
-Plug 'kassio/neoterm'
-Plug 'elzr/vim-json'
-Plug 'junegunn/vim-easy-align'
-Plug 'shime/vim-livedown'
-Plug 'tmhedberg/matchit'
-Plug 'ecomba/vim-ruby-refactoring'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'vim-erlang/vim-erlang-runtime'
+Plug 'vim-erlang/vim-erlang-compiler'
+Plug 'vim-erlang/vim-erlang-omnicomplete'
+Plug 'wakatime/vim-wakatime'
 call plug#end()
 
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
