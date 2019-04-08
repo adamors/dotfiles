@@ -5,6 +5,10 @@ endif
 set nocompatible
 
 call plug#begin('~/.nvim/plugged')
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
 Plug 'airblade/vim-gitgutter'
 Plug 'bling/vim-airline'
 Plug 'ecomba/vim-ruby-refactoring'
@@ -106,6 +110,13 @@ function! GitSearchForWord(query)
     endif
 endfunction
 
+" Use bc to evaluate arithmetic expressions
+function! CalculateExpression(expr)
+    if !empty(a:expr)
+        return system("echo 'print " . a:expr . "' | bc -l")
+    endif
+endfunction
+
 function! GetVisual() range
     let reg_save = getreg('"')
     let regtype_save = getregtype('"')
@@ -139,10 +150,10 @@ augroup vimrc_autocmd
     autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
     autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
     autocmd FileType php setlocal omnifunc=javascriptcomplete#CompletePHP
-    autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
-    autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
-    autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
-    autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
+    "autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+    "autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
+    "autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
+    "autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
     autocmd FileType ruby setlocal re=1 foldmethod=manual
     autocmd FileType make set noexpandtab
     autocmd Syntax * call matchadd('Todo',  '\W\zs\(TODO\|FIXME\|CHANGED\|XXX\|BUG\|HACK\)')
@@ -165,6 +176,7 @@ nnoremap <space> :noh<cr>
 nnoremap <leader>n :NERDTreeToggle<cr>
 nnoremap <leader>z :TlistToggle<cr>
 nnoremap <leader>N :NERDTreeFind<cr>
+nnoremap <leader>s :silent! make<CR>
 nnoremap <C-tab> :bn<CR>
 nnoremap <C-S-tab> :bp<CR>
 inoremap <C-tab> <Esc>:bn<CR>i
@@ -201,6 +213,16 @@ noremap <C-A> :Buffers<CR>
 noremap <Leader>f g<C-]>
 vnoremap // y/<C-R>"<CR>
 
+" terminal keybinds
+nnoremap <silent> <Leader>t  :Tnew<cr>
+nnoremap <silent> <Leader>r  :T dew rails c
+nnoremap <silent> <Leader>e :TREPLSendLine<cr>
+vnoremap <silent> <Leader>e :TREPLSendSelection<cr>
+nnoremap <silent> ,th :call neoterm#close()<cr>
+
+" use for arithmetic expressions, selection will be replaced with it's value
+vnoremap <space>e :s/\%V.*/\=CalculateExpression(submatch(0))/<CR>:noh<CR>
+
 let g:deoplete#enable_at_startup = 1
 let g:deoplete_max_list = 10
 let g:deoplete_auto_completion_start_length = 3
@@ -223,12 +245,17 @@ let g:neoterm_default_mod = 'horizontal'
 let g:neoterm_keep_term_open = 0
 let g:neoterm_autoinsert = 1
 
-" nnoremap <silent> <f10> :TREPLSendFile<cr>
-nnoremap <silent> <Leader>t  :Tnew<cr>
-nnoremap <silent> <Leader>r  :T dew rails c
-nnoremap <silent> <Leader>e :TREPLSendLine<cr>
-vnoremap <silent> <Leader>e :TREPLSendSelection<cr>
+" Tell the language client to use the default IP and port
+" that Solargraph runs on
+let g:LanguageClient_serverCommands = {
+    \ 'ruby': ['tcp://localhost:7658']
+    \ }
 
-" Useful maps
-" hide/close terminal
-nnoremap <silent> ,th :call neoterm#close()<cr>
+" Don't send a stop signal to the server when exiting vim.
+" This is optional, but I don't like having to restart Solargraph
+" every time I restart vim.
+let g:LanguageClient_autoStop = 0
+let g:livedown_autorun = 1
+
+" Configure ruby omni-completion to use the language client:
+autocmd FileType ruby setlocal omnifunc=LanguageClient#complete
