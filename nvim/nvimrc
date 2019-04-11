@@ -3,12 +3,9 @@ if $SHELL =~ 'bin/fish'
 endif
 
 set nocompatible
+let g:ale_completion_enabled = 1
 
 call plug#begin('~/.nvim/plugged')
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
 Plug 'airblade/vim-gitgutter'
 Plug 'bling/vim-airline'
 Plug 'ecomba/vim-ruby-refactoring'
@@ -19,10 +16,9 @@ Plug 'junegunn/fzf.vim'
 Plug 'junegunn/gv.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'kassio/neoterm'
-Plug 'neomake/neomake'
+Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 Plug 'scrooloose/nerdtree'
 Plug 'shime/vim-livedown'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'tmhedberg/matchit'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-fugitive'
@@ -33,6 +29,7 @@ Plug 'vim-erlang/vim-erlang-runtime'
 Plug 'vim-erlang/vim-erlang-compiler'
 Plug 'vim-erlang/vim-erlang-omnicomplete'
 Plug 'wakatime/vim-wakatime'
+Plug 'w0rp/ale'
 call plug#end()
 
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
@@ -157,7 +154,7 @@ augroup vimrc_autocmd
     autocmd FileType ruby setlocal re=1 foldmethod=manual
     autocmd FileType make set noexpandtab
     autocmd Syntax * call matchadd('Todo',  '\W\zs\(TODO\|FIXME\|CHANGED\|XXX\|BUG\|HACK\)')
-    autocmd! BufWritePost * Neomake
+    " autocmd! BufWritePost * Neomake
 augroup END
 let s:tab_sensitive_filetypes = ['make']
 
@@ -223,11 +220,21 @@ nnoremap <silent> ,th :call neoterm#close()<cr>
 " use for arithmetic expressions, selection will be replaced with it's value
 vnoremap <space>e :s/\%V.*/\=CalculateExpression(submatch(0))/<CR>:noh<CR>
 
-let g:deoplete#enable_at_startup = 1
-let g:deoplete_max_list = 10
-let g:deoplete_auto_completion_start_length = 3
+let g:ale_linters_explicit = 1 " run only the linters defined explictly below
+let g:ale_linters = {
+\   'ruby': ['rubocop', 'reek'],
+\}
 
-let g:neomake_ruby_enabled_makers = ['rubocop', 'reek']
+" Use K for show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if &filetype == 'vim'
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
 
 let NERDTreeShowHidden=1
 
@@ -236,6 +243,7 @@ let g:airline_right_sep=''
 let g:airline_powerline_fonts = 0
 let g:airline_theme='tomorrow'
 let g:airline#extensions#tabline#enabled = 0
+let g:airline#extensions#ale#enabled = 1
 
 let g:mta_filetypes = { 'html' : 1, 'xhtml' : 1, 'xml' : 1, 'jinja' : 1, 'eruby' : 1, 'twig' : 1, 'erb'  : 1, }
 
@@ -245,17 +253,4 @@ let g:neoterm_default_mod = 'horizontal'
 let g:neoterm_keep_term_open = 0
 let g:neoterm_autoinsert = 1
 
-" Tell the language client to use the default IP and port
-" that Solargraph runs on
-let g:LanguageClient_serverCommands = {
-    \ 'ruby': ['tcp://localhost:7658']
-    \ }
-
-" Don't send a stop signal to the server when exiting vim.
-" This is optional, but I don't like having to restart Solargraph
-" every time I restart vim.
-let g:LanguageClient_autoStop = 0
 let g:livedown_autorun = 1
-
-" Configure ruby omni-completion to use the language client:
-autocmd FileType ruby setlocal omnifunc=LanguageClient#complete
