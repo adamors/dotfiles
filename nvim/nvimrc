@@ -220,6 +220,7 @@ nnoremap <silent> ,th :call neoterm#close()<cr>
 " use for arithmetic expressions, selection will be replaced with it's value
 vnoremap <space>e :s/\%V.*/\=CalculateExpression(submatch(0))/<CR>:noh<CR>
 
+let g:ale_set_highlights = 0
 let g:ale_linters_explicit = 1 " run only the linters defined explictly below
 let g:ale_linters = {
 \   'ruby': ['rubocop', 'reek'],
