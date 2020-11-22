@@ -6,30 +6,45 @@ set nocompatible
 let g:ale_completion_enabled = 1
 
 call plug#begin('~/.nvim/plugged')
+Plug 'MaxMEllon/vim-jsx-pretty'
 Plug 'airblade/vim-gitgutter'
-Plug 'bling/vim-airline'
+Plug 'cespare/vim-toml'
+Plug 'chiedo/vim-case-convert'
+Plug 'chriskempson/base16-vim'
 Plug 'ecomba/vim-ruby-refactoring'
 Plug 'editorconfig/editorconfig-vim'
+Plug 'elixir-editors/vim-elixir'
 Plug 'elzr/vim-json'
+Plug 'jparise/vim-graphql'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/gv.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'kassio/neoterm'
-Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
+Plug 'leafgarland/typescript-vim'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'noprompt/vim-yardoc'
+Plug 'pangloss/vim-javascript'
+Plug 'pearofducks/ansible-vim'
+Plug 'pocke/whichpr'
+Plug 'ruby-formatter/rufo-vim'
 Plug 'scrooloose/nerdtree'
 Plug 'shime/vim-livedown'
+Plug 'slim-template/vim-slim'
 Plug 'tmhedberg/matchit'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-markdown'
 Plug 'tpope/vim-rails'
+Plug 'tpope/vim-rhubarb'
+Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'vim-erlang/vim-erlang-runtime'
 Plug 'vim-erlang/vim-erlang-compiler'
 Plug 'vim-erlang/vim-erlang-omnicomplete'
-Plug 'wakatime/vim-wakatime'
+Plug 'vim-erlang/vim-erlang-runtime'
 Plug 'w0rp/ale'
+Plug 'wakatime/vim-wakatime'
+" Plug 'fatih/vim-go'
 call plug#end()
 
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
@@ -43,7 +58,16 @@ set vb
 syntax enable
 set t_Co=256
 set background=dark
-colorscheme Tomorrow-Night
+
+let base16colorspace=256
+" colorscheme Tomorrow-Night
+colorscheme base16-default-dark
+
+runtime macros/matchit.vim
+
+highlight yardGenericTag cterm=bold
+highlight yardAttribute cterm=bold
+
 try
     set undodir=~/.vim/undodir
         set undofile
@@ -60,7 +84,7 @@ set tabstop=2
 set shiftwidth=2
 set expandtab
 set smarttab
-set cindent
+" set cindent
 set autoindent
 set bs=2
 set nocp incsearch
@@ -80,6 +104,7 @@ set laststatus=2
 set completeopt-=preview
 set mousehide
 set mouse=a
+set tags=.tags;
 filetype plugin on
 
 if has('conceal')
@@ -141,6 +166,12 @@ endfunction
 
 :command! YankMatches :call CopyMatches()<CR>
 
+function! PrintCurrentFilename()
+  execute "normal! i" . expand("%") . "\<Esc>"
+endfunction
+
+:command! CurrentFilename :call PrintCurrentFilename()<CR>
+
 augroup vimrc_autocmd
     autocmd!
     autocmd BufRead,BufNewFile *.js.erb set filetype=javascript
@@ -156,7 +187,7 @@ augroup vimrc_autocmd
     autocmd Syntax * call matchadd('Todo',  '\W\zs\(TODO\|FIXME\|CHANGED\|XXX\|BUG\|HACK\)')
     " autocmd! BufWritePost * Neomake
 augroup END
-let s:tab_sensitive_filetypes = ['make']
+let s:tab_sensitive_filetypes = ['make', 'go']
 
 set wildignore+=*.psd,*.doc,*.docx,*.xlsx
 set wildignore+=*/vendor/**
@@ -173,7 +204,7 @@ nnoremap <space> :noh<cr>
 nnoremap <leader>n :NERDTreeToggle<cr>
 nnoremap <leader>z :TlistToggle<cr>
 nnoremap <leader>N :NERDTreeFind<cr>
-nnoremap <leader>s :silent! make<CR>
+" nnoremap <leader>s :silent! make<CR>
 nnoremap <C-tab> :bn<CR>
 nnoremap <C-S-tab> :bp<CR>
 inoremap <C-tab> <Esc>:bn<CR>i
@@ -187,8 +218,10 @@ tnoremap <C-k> <c-\><c-n><c-w>k
 tnoremap <C-h> <c-\><c-n><c-w>h
 tnoremap <C-l> <c-\><c-n><c-w>l
 au WinEnter *pid:* call feedkeys('i')
-nmap gV `[v`] "highlight last inserted text
-nnoremap <leader>x :bp<bar>sp<bar>bn<bar>bd<CR> " close current buffer without closing the window
+"highlight last inserted text
+nmap gV `[v`]
+" close current buffer without closing the window
+nnoremap <leader>x :bp<bar>sp<bar>bn<bar>bd<CR>
 nnoremap <leader>c :clo<CR> " close current window
 nnoremap <leader>v :vs<CR> " vertical split
 nnoremap <leader>h :vertical resize -5<cr>
@@ -198,6 +231,20 @@ nnoremap <leader>gw :Gwrite<cr>
 nnoremap <leader>gc :GCommit<cr>
 nnoremap <leader>gp :Gpush<cr>
 nnoremap <leader>gl :silent! Glog<CR>:bot copen<CR>
+" open the GitHub PR in which the line under cursor was last modified
+function! OpenPRForLine() abort
+  let line = line('.')
+  let fname = expand('%')
+  let cmd = printf('git blame -L %d,%d %s | cut -d " " -f 1', line, line, fname)
+  let sha1 = system(cmd)
+  echo sha1
+  let cmd = printf('whichpr open %s', sha1)
+  echo system(cmd)
+endfunction
+
+nnoremap <leader>pr :call OpenPRForLine()<cr>
+" open file in github
+nnoremap <leader>o :Gbrowse<cr>
 imap <c-l> <space>=><space>
 imap <c-b> ->
 imap <C-c> <CR><Esc>O
@@ -205,25 +252,36 @@ imap <C-e> <Esc>A
 nnoremap Q :qa<CR>
 noremap q: <nop>
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-nnoremap <C-P> :Files<CR>
+nnoremap <C-P> :Files .<CR>
 noremap <C-A> :Buffers<CR>
+" nnoremap <Leader>f :<C-U>tjump <Plug><cword><CR>
 noremap <Leader>f g<C-]>
 vnoremap // y/<C-R>"<CR>
 
 " terminal keybinds
+let g:neoterm_default_mod='belowright'
+
+let g:neoterm_shell='fish'
+" let g:neoterm_default_mod = 'horizontal'
+let g:neoterm_keep_term_open = 0
+let g:neoterm_autoinsert = 1
+
 nnoremap <silent> <Leader>t  :Tnew<cr>
-nnoremap <silent> <Leader>r  :T dew rails c
-nnoremap <silent> <Leader>e :TREPLSendLine<cr>
-vnoremap <silent> <Leader>e :TREPLSendSelection<cr>
-nnoremap <silent> ,th :call neoterm#close()<cr>
+" run the currently opened file in rspec
+nnoremap <silent> <Leader>r  :T lspec %<cr>
+" nnoremap <silent> <Leader>e :TREPLSendLine<cr>
+" vnoremap <silent> <Leader>e :TREPLSendSelection<cr>
+" nnoremap <silent> ,th :call neoterm#close()<cr>
 
 " use for arithmetic expressions, selection will be replaced with it's value
 vnoremap <space>e :s/\%V.*/\=CalculateExpression(submatch(0))/<CR>:noh<CR>
 
 let g:ale_set_highlights = 0
 let g:ale_linters_explicit = 1 " run only the linters defined explictly below
+let g:ale_ruby_rubocop_executable = 'bundle'
 let g:ale_linters = {
-\   'ruby': ['rubocop', 'reek'],
+\   'ruby': ['rubocop'],
+\   'javascript': ['eslint'],
 \}
 
 " Use K for show documentation in preview window
@@ -242,16 +300,21 @@ let NERDTreeShowHidden=1
 let g:airline_left_sep=''
 let g:airline_right_sep=''
 let g:airline_powerline_fonts = 0
-let g:airline_theme='tomorrow'
+let g:airline_theme='base16'
 let g:airline#extensions#tabline#enabled = 0
 let g:airline#extensions#ale#enabled = 1
+let g:airline#extensions#default#section_truncate_width = {
+      \ 'b': 99,
+      \ 'x': 60,
+      \ 'y': 88,
+      \ 'z': 45,
+      \ 'warning': 80,
+      \ 'error': 80,
+      \ }
 
 let g:mta_filetypes = { 'html' : 1, 'xhtml' : 1, 'xml' : 1, 'jinja' : 1, 'eruby' : 1, 'twig' : 1, 'erb'  : 1, }
 
 let g:vim_json_syntax_conceal = 0
-let g:neoterm_shell='fish'
-let g:neoterm_default_mod = 'horizontal'
-let g:neoterm_keep_term_open = 0
-let g:neoterm_autoinsert = 1
-
 let g:livedown_autorun = 1
+
+let g:gitgutter_git_executable='/usr/bin/git'

@@ -354,6 +354,11 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
 	call <SID>X("diffAdded", s:green, "", "")
 	call <SID>X("diffRemoved", s:red, "", "")
 
+  " call <SID>X("DiffAdd", s:background, s:green, "")  " diff mode: Added line
+  " call <SID>X("DiffChange", s:yellow, "", "" ) " diff mode: Changed line
+  " call <SID>X("DiffDelete", s:background, s:red, "" ) " diff mode: Deleted line
+  " call <SID>X("DiffText", s:black, s:yellow, "") " diff mode: Changed text within a changed line
+
 	" ShowMarks Highlighting
 	call <SID>X("ShowMarksHLl", s:orange, s:background, "none")
 	call <SID>X("ShowMarksHLo", s:purple, s:background, "none")
