@@ -1,4 +1,3 @@
-# https://github.com/oh-my-fish/theme-clearance
 # name: clearance
 # ---------------
 # Based on idan. Display the following bits on the left:
@@ -7,14 +6,16 @@
 # - Git branch and dirty state (if inside a git repo)
 
 function _git_branch_name
-  echo (command git symbolic-ref HEAD ^/dev/null | sed -e 's|^refs/heads/||')
+  echo (command git symbolic-ref HEAD 2> /dev/null | sed -e 's|^refs/heads/||')
 end
 
 function _git_is_dirty
-  echo (command git status -s --ignore-submodules=dirty ^/dev/null)
+  echo (command git status -s --ignore-submodules=dirty 2> /dev/null)
 end
 
 function fish_prompt
+  set -l last_status $status
+
   set -l cyan (set_color cyan)
   set -l yellow (set_color yellow)
   set -l red (set_color red)
@@ -34,6 +35,8 @@ function fish_prompt
       echo -n -s (set_color -b cyan black) '[' (basename "$VIRTUAL_ENV") ']' $normal ' '
   end
 
+  echo -n -s $green (hostname -s) " " $normal
+
   # Print pwd or full path
   echo -n -s $cwd $normal
 
@@ -49,7 +52,12 @@ function fish_prompt
     echo -n -s ' · ' $git_info $normal
   end
 
+  set -l prompt_color $red
+  if test $last_status = 0
+    set prompt_color $normal
+  end
+
   # Terminate with a nice prompt char
   echo -e ''
-  echo -e -n -s '⟩ ' $normal
+  echo -e -n -s $prompt_color '⟩ ' $normal
 end
