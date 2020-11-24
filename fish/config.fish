@@ -1,11 +1,6 @@
-tic $TERM.ti
-
 set my_aliases "$HOME/.config/fish/functions/aliases.fish"
 set my_local_config "$HOME/.config/fish/local_config.fish"
-
-if test -e "$HOME/.config/fish/tmux_config.fish"
-    set tmux_config "$HOME/.config/fish/tmux_config.fish"
-end
+set tmux_config "$HOME/.config/fish/tmux_config.fish"
 
 source $my_aliases
 
