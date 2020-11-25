@@ -195,6 +195,8 @@ set wildignore+=*/node_modules/**
 set wildignore+=*/bower_components/**
 
 let mapleader = ","
+" free up control-q for tmux
+noremap <C-q> <Nop>
 inoremap jk <esc>
 nnoremap <space>is :call GitSearch()<cr>
 nnoremap <space>s :Ag <C-R><C-W><cr>
