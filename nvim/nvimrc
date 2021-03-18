@@ -151,6 +151,15 @@ function! GetVisual() range
     return selection
 endfunction
 
+function! SumLines() range
+  let sum = eval(join(getline(a:firstline,a:lastline),'+'))
+
+  call cursor(a:lastline, 1)
+  execute "normal! o" . sum . "\<Esc>"
+endfunction
+
+:command! -range=% Sum <line1>,<line2>call SumLines()<CR>
+
 function! FormatJsonFunction()
     :%!python -m json.tool
 endfunction
