@@ -88,7 +88,7 @@ set smarttab
 set autoindent
 set bs=2
 set nocp incsearch
-set colorcolumn=80
+set colorcolumn=80,120
 set formatoptions=tcqr
 set backspace=indent,eol,start
 set hlsearch
@@ -172,6 +172,19 @@ endfunction
 
 :command! CurrentFilename :call PrintCurrentFilename()<CR>
 
+if executable('clipboard-provider')
+    " checkout https://github.com/agriffis/skel/blob/master/neovim/bin/clipboard-provider
+    let g:clipboard = {
+          \ 'name': 'myClipboard',
+          \     'copy': {
+          \         '+': 'clipboard-provider copy',
+          \     },
+          \     'paste': {
+          \         '+': 'clipboard-provider paste',
+          \     },
+          \ }
+endif
+
 augroup vimrc_autocmd
     autocmd!
     autocmd BufRead,BufNewFile *.js.erb set filetype=javascript
@@ -240,13 +253,14 @@ function! OpenPRForLine() abort
   let cmd = printf('git blame -L %d,%d %s | cut -d " " -f 1', line, line, fname)
   let sha1 = system(cmd)
   echo sha1
-  let cmd = printf('whichpr open %s', sha1)
+  " let cmd = printf('whichpr open %s', sha1)
   echo system(cmd)
 endfunction
 
 nnoremap <leader>pr :call OpenPRForLine()<cr>
 " open file in github
-nnoremap <leader>o :Gbrowse<cr>
+nnoremap <leader>o :Gbrowse!<cr>
+
 imap <c-l> <space>=><space>
 imap <c-b> ->
 imap <C-c> <CR><Esc>O
@@ -254,7 +268,7 @@ imap <C-e> <Esc>A
 nnoremap Q :qa<CR>
 noremap q: <nop>
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-nnoremap <C-P> :Files .<CR>
+nnoremap <C-P> :GFiles .<CR>
 noremap <C-A> :Buffers<CR>
 " nnoremap <Leader>f :<C-U>tjump <Plug><cword><CR>
 noremap <Leader>f g<C-]>
