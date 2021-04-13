@@ -269,7 +269,7 @@ endfunction
 nnoremap <leader>pr :call OpenPRForLine()<cr>
 " open file in github
 nnoremap <leader>o :Gbrowse!<cr>
-
+vnoremap <leader>o :Gbrowse<cr>
 imap <c-l> <space>=><space>
 imap <c-b> ->
 imap <C-c> <CR><Esc>O
