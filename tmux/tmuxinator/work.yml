@@ -1,0 +1,13 @@
+name: work
+root: ~/work/platform
+
+windows:
+  - editor: nvim
+  - docker: docker-compose up development
+  - platform:
+      pre: sleep 10 # wait for docker Postgres to become available
+      layout: even-vertical
+      panes:
+        - bundle exec rails s -b 0.0.0.0 -p 3000
+        - yarn start
+
