@@ -261,8 +261,8 @@ function! OpenPRForLine() abort
   let fname = expand('%')
   let cmd = printf('git blame -L %d,%d %s | cut -d " " -f 1', line, line, fname)
   let sha1 = system(cmd)
-  echo sha1
-  " let cmd = printf('whichpr open %s', sha1)
+  " echo sha1
+  let cmd = printf('whichpr open %s', sha1)
   echo system(cmd)
 endfunction
 
