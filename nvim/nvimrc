@@ -207,6 +207,7 @@ augroup vimrc_autocmd
     autocmd FileType ruby setlocal re=1 foldmethod=manual
     autocmd FileType make set noexpandtab
     autocmd Syntax * call matchadd('Todo',  '\W\zs\(TODO\|FIXME\|CHANGED\|XXX\|BUG\|HACK\)')
+    au BufNewFile,BufRead Jenkinsfile setf groovy
     " autocmd! BufWritePost * Neomake
 augroup END
 let s:tab_sensitive_filetypes = ['make', 'go']
