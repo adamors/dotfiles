@@ -259,6 +259,7 @@ nnoremap <leader>gw :Gwrite<cr>
 nnoremap <leader>gc :GCommit<cr>
 nnoremap <leader>gp :Gpush<cr>
 nnoremap <leader>gl :silent! Glog<CR>:bot copen<CR>
+nnoremap <leader>gb :Git blame<cr>
 " open the GitHub PR in which the line under cursor was last modified
 function! OpenPRForLine() abort
   let line = line('.')
