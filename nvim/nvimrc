@@ -23,7 +23,7 @@ Plug 'junegunn/gv.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'kassio/neoterm'
 Plug 'leafgarland/typescript-vim'
-Plug 'maxmellon/vim-jsx-pretty'
+Plug 'MaxMEllon/vim-jsx-pretty'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'noprompt/vim-yardoc'
 Plug 'pangloss/vim-javascript'
