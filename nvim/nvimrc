@@ -6,15 +6,16 @@ set nocompatible
 let g:ale_completion_enabled = 1
 
 call plug#begin('~/.nvim/plugged')
-Plug 'MaxMEllon/vim-jsx-pretty'
 Plug 'airblade/vim-gitgutter'
 Plug 'cespare/vim-toml'
 Plug 'chiedo/vim-case-convert'
 Plug 'chriskempson/base16-vim'
 Plug 'ecomba/vim-ruby-refactoring'
 Plug 'editorconfig/editorconfig-vim'
+Plug 'eliba2/vim-node-inspect'
 Plug 'elixir-editors/vim-elixir'
 Plug 'elzr/vim-json'
+Plug 'fatih/vim-go'
 Plug 'jparise/vim-graphql'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -22,6 +23,7 @@ Plug 'junegunn/gv.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'kassio/neoterm'
 Plug 'leafgarland/typescript-vim'
+Plug 'maxmellon/vim-jsx-pretty'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'noprompt/vim-yardoc'
 Plug 'pangloss/vim-javascript'
@@ -44,7 +46,6 @@ Plug 'vim-erlang/vim-erlang-omnicomplete'
 Plug 'vim-erlang/vim-erlang-runtime'
 Plug 'w0rp/ale'
 Plug 'wakatime/vim-wakatime'
-" Plug 'fatih/vim-go'
 call plug#end()
 
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
@@ -105,6 +106,8 @@ set completeopt-=preview
 set mousehide
 set mouse=a
 set tags=.tags;
+set inccommand=nosplit
+
 filetype plugin on
 
 if has('conceal')
@@ -256,21 +259,22 @@ nnoremap <leader>gw :Gwrite<cr>
 nnoremap <leader>gc :GCommit<cr>
 nnoremap <leader>gp :Gpush<cr>
 nnoremap <leader>gl :silent! Glog<CR>:bot copen<CR>
+nnoremap <leader>gb :Git blame<cr>
 " open the GitHub PR in which the line under cursor was last modified
 function! OpenPRForLine() abort
   let line = line('.')
   let fname = expand('%')
   let cmd = printf('git blame -L %d,%d %s | cut -d " " -f 1', line, line, fname)
   let sha1 = system(cmd)
-  echo sha1
-  " let cmd = printf('whichpr open %s', sha1)
+  " echo sha1
+  let cmd = printf('whichpr open %s', sha1)
   echo system(cmd)
 endfunction
 
 nnoremap <leader>pr :call OpenPRForLine()<cr>
 " open file in github
-nnoremap <leader>o :Gbrowse!<cr>
-vnoremap <leader>o :Gbrowse<cr>
+nnoremap <leader>o :GBrowse!<cr>
+vnoremap <leader>o :GBrowse<cr>
 imap <c-l> <space>=><space>
 imap <c-b> ->
 imap <C-c> <CR><Esc>O
