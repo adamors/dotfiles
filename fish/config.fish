@@ -13,4 +13,14 @@ if test -e $iterm2_shell_integration
 end
 
 set -Ux EDITOR nvim
+
+# Direnv
 eval (direnv hook fish)
+
+# Gpg
+set -gx GPG_TTY (tty)
+
+if status --is-interactive
+    set BASE16_SHELL "$HOME/.config/base16-shell/"
+    source "$BASE16_SHELL/profile_helper.fish"
+end
