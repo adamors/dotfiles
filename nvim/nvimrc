@@ -107,6 +107,8 @@ set mousehide
 set mouse=a
 set tags=.tags;
 set inccommand=nosplit
+" Shared clipboard between instances
+set clipboard=unnamedplus
 
 filetype plugin on
 
@@ -254,7 +256,7 @@ nnoremap <leader>c :clo<CR> " close current window
 nnoremap <leader>v :vs<CR> " vertical split
 nnoremap <leader>h :vertical resize -5<cr>
 nnoremap <leader>l :vertical resize +5<cr>
-nnoremap <leader>gs :Gstatus<cr>
+nnoremap <leader>gs :Git<cr>
 nnoremap <leader>gw :Gwrite<cr>
 nnoremap <leader>gc :GCommit<cr>
 nnoremap <leader>gp :Gpush<cr>
@@ -267,7 +269,7 @@ function! OpenPRForLine() abort
   let cmd = printf('git blame -L %d,%d %s | cut -d " " -f 1', line, line, fname)
   let sha1 = system(cmd)
   " echo sha1
-  let cmd = printf('whichpr open %s', sha1)
+  let cmd = printf('whichpr show %s', sha1)
   echo system(cmd)
 endfunction
 
@@ -282,7 +284,7 @@ imap <C-e> <Esc>A
 nnoremap Q :qa<CR>
 noremap q: <nop>
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-nnoremap <C-P> :GFiles .<CR>
+nnoremap <C-P> :Files .<CR>
 noremap <C-A> :Buffers<CR>
 " nnoremap <Leader>f :<C-U>tjump <Plug><cword><CR>
 noremap <Leader>f g<C-]>
