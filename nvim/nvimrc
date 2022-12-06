@@ -44,7 +44,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-erlang/vim-erlang-compiler'
 Plug 'vim-erlang/vim-erlang-omnicomplete'
 Plug 'vim-erlang/vim-erlang-runtime'
-Plug 'w0rp/ale'
+Plug 'dense-analysis/ale'
 Plug 'wakatime/vim-wakatime'
 call plug#end()
 
@@ -290,6 +290,9 @@ noremap <C-A> :Buffers<CR>
 noremap <Leader>f g<C-]>
 vnoremap // y/<C-R>"<CR>
 
+" Neovim remapped Y to y$, I don't like it
+nunmap Y
+
 " terminal keybinds
 let g:neoterm_default_mod='belowright'
 
@@ -300,7 +303,7 @@ let g:neoterm_autoinsert = 1
 
 nnoremap <silent> <Leader>t  :Tnew<cr>
 " run the currently opened file in rspec
-nnoremap <silent> <Leader>r  :T lspec %<cr>
+nnoremap <silent> <Leader>r  :T bspec %<cr>
 " nnoremap <silent> <Leader>e :TREPLSendLine<cr>
 " vnoremap <silent> <Leader>e :TREPLSendSelection<cr>
 " nnoremap <silent> ,th :call neoterm#close()<cr>
@@ -312,7 +315,7 @@ let g:ale_set_highlights = 0
 let g:ale_linters_explicit = 1 " run only the linters defined explictly below
 let g:ale_ruby_rubocop_executable = 'bundle'
 let g:ale_linters = {
-\   'ruby': ['rubocop'],
+\   'ruby': ['rubocop', 'reek'],
 \   'javascript': ['eslint'],
 \}
 
@@ -326,6 +329,8 @@ function! s:show_documentation()
     call CocAction('doHover')
   endif
 endfunction
+
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 let NERDTreeShowHidden=1
 
