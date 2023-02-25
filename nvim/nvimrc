@@ -7,7 +7,7 @@ let g:ale_completion_enabled = 1
 
 call plug#begin('~/.nvim/plugged')
 Plug 'airblade/vim-gitgutter' " git diffs
-Plug 'chriskempson/base16-vim' " color scheme
+Plug 'RRethy/nvim-base16' " colorscheme
 Plug 'editorconfig/editorconfig-vim' " editor config
 " Plug 'eliba2/vim-node-inspect'
 Plug 'elzr/vim-json' " json
@@ -17,6 +17,7 @@ Plug 'junegunn/fzf.vim' " fuzzy finder
 Plug 'junegunn/vim-easy-align' " align text by chars
 Plug 'kassio/neoterm' " terminal ?
 Plug 'neoclide/coc.nvim', {'branch': 'release'} " nodejs extension host, lsp, autocomplete
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " incremental parsing system + code highlight
 Plug 'pocke/whichpr' " open which pr code was commited
 Plug 'scrooloose/nerdtree' " file manager
 Plug 'shime/vim-livedown' " markdown preview in browser
@@ -40,12 +41,12 @@ set nobackup
 set nowb
 set noswapfile
 set vb
-syntax enable
+" syntax enable
 set t_Co=256
+set t_ut=
 set background=dark
 
 let base16colorspace=256
-" colorscheme Tomorrow-Night
 colorscheme base16-default-dark
 
 runtime macros/matchit.vim
@@ -338,3 +339,16 @@ let g:vim_json_syntax_conceal = 0
 let g:livedown_autorun = 1
 
 let g:gitgutter_git_executable='/usr/bin/git'
+
+lua << EOF
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = { "c", "lua", "vim", "help", "ruby", "go", "javascript", "yaml" },
+  sync_install = false,
+  auto_install = true,
+  highlight = {
+    enable = true,
+    additional_vim_regex_highlighting = false,
+  },
+}
+EOF
+
