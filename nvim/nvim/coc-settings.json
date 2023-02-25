@@ -1,3 +1,20 @@
 {
-  "suggest.noselect": true
+  "suggest.noselect": true,
+  "yaml.enable": true,
+  "yaml.completion": true,
+  "yaml.validate": true,
+  "yaml.schemaStoreEnabled": true,
+  "yaml.schemas": {
+    "kubernetes": ["/*.yaml"]
+  },
+  "languageserver": {
+    "golang": {
+      "command": "gopls",
+      "rootPatterns": ["go.work", "go.mod", ".vim/", ".git/", ".hg/"],
+      "filetypes": ["go"],
+      "initializationOptions": {
+        "usePlaceholders": true
+      }
+    }
+  }
 }
