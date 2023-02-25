@@ -6,46 +6,30 @@ set nocompatible
 let g:ale_completion_enabled = 1
 
 call plug#begin('~/.nvim/plugged')
-Plug 'airblade/vim-gitgutter'
-Plug 'cespare/vim-toml'
-Plug 'chiedo/vim-case-convert'
-Plug 'chriskempson/base16-vim'
-Plug 'ecomba/vim-ruby-refactoring'
-Plug 'editorconfig/editorconfig-vim'
-Plug 'eliba2/vim-node-inspect'
-Plug 'elixir-editors/vim-elixir'
-Plug 'elzr/vim-json'
-Plug 'fatih/vim-go'
-Plug 'jparise/vim-graphql'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
-Plug 'junegunn/gv.vim'
-Plug 'junegunn/vim-easy-align'
-Plug 'kassio/neoterm'
-Plug 'leafgarland/typescript-vim'
-Plug 'maxmellon/vim-jsx-pretty'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'noprompt/vim-yardoc'
-Plug 'pangloss/vim-javascript'
-Plug 'pearofducks/ansible-vim'
-Plug 'pocke/whichpr'
-Plug 'ruby-formatter/rufo-vim'
-Plug 'scrooloose/nerdtree'
-Plug 'shime/vim-livedown'
-Plug 'slim-template/vim-slim'
+Plug 'airblade/vim-gitgutter' " git diffs
+Plug 'chriskempson/base16-vim' " color scheme
+Plug 'editorconfig/editorconfig-vim' " editor config
+" Plug 'eliba2/vim-node-inspect'
+Plug 'elzr/vim-json' " json
+Plug 'fatih/vim-go' " go
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } " fuzzy finder
+Plug 'junegunn/fzf.vim' " fuzzy finder
+Plug 'junegunn/vim-easy-align' " align text by chars
+Plug 'kassio/neoterm' " terminal ?
+Plug 'neoclide/coc.nvim', {'branch': 'release'} " nodejs extension host, lsp, autocomplete
+Plug 'pocke/whichpr' " open which pr code was commited
+Plug 'scrooloose/nerdtree' " file manager
+Plug 'shime/vim-livedown' " markdown preview in browser
 Plug 'tmhedberg/matchit'
-Plug 'tpope/vim-endwise'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-markdown'
-Plug 'tpope/vim-rails'
-Plug 'tpope/vim-rhubarb'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'vim-erlang/vim-erlang-compiler'
-Plug 'vim-erlang/vim-erlang-omnicomplete'
-Plug 'vim-erlang/vim-erlang-runtime'
-Plug 'dense-analysis/ale'
-Plug 'wakatime/vim-wakatime'
+Plug 'tpope/vim-endwise'  " add end to ruby ifs/blocks etc.
+Plug 'tpope/vim-fugitive' " git
+Plug 'tpope/vim-markdown' " markdown
+Plug 'tpope/vim-rails' " rails
+Plug 'tpope/vim-rhubarb' " github integration with fugitive
+Plug 'vim-airline/vim-airline' " status line
+Plug 'vim-airline/vim-airline-themes' " status line themes
+Plug 'dense-analysis/ale' " probably not needed
+Plug 'wakatime/vim-wakatime' " statistics from editing
 call plug#end()
 
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
@@ -107,8 +91,6 @@ set mousehide
 set mouse=a
 set tags=.tags;
 set inccommand=nosplit
-" Shared clipboard between instances
-set clipboard=unnamedplus
 
 filetype plugin on
 
@@ -304,6 +286,7 @@ let g:neoterm_autoinsert = 1
 nnoremap <silent> <Leader>t  :Tnew<cr>
 " run the currently opened file in rspec
 nnoremap <silent> <Leader>r  :T bspec %<cr>
+" nnoremap <silent> <Leader>r  :T go run %<cr>
 " nnoremap <silent> <Leader>e :TREPLSendLine<cr>
 " vnoremap <silent> <Leader>e :TREPLSendSelection<cr>
 " nnoremap <silent> ,th :call neoterm#close()<cr>
@@ -315,7 +298,7 @@ let g:ale_set_highlights = 0
 let g:ale_linters_explicit = 1 " run only the linters defined explictly below
 let g:ale_ruby_rubocop_executable = 'bundle'
 let g:ale_linters = {
-\   'ruby': ['rubocop', 'reek'],
+\   'ruby': ['rubocop'],
 \   'javascript': ['eslint'],
 \}
 
