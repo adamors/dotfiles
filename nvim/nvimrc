@@ -6,10 +6,10 @@ set nocompatible
 let g:ale_completion_enabled = 1
 
 call plug#begin('~/.nvim/plugged')
-Plug 'airblade/vim-gitgutter' " git diffs
-Plug 'RRethy/nvim-base16' " colorscheme
-Plug 'editorconfig/editorconfig-vim' " editor config
 " Plug 'eliba2/vim-node-inspect'
+Plug 'airblade/vim-gitgutter' " git diffs
+Plug 'dense-analysis/ale' " probably not needed
+Plug 'editorconfig/editorconfig-vim' " editor config
 Plug 'elzr/vim-json' " json
 Plug 'fatih/vim-go' " go
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } " fuzzy finder
@@ -20,17 +20,16 @@ Plug 'mhartington/oceanic-next' " colorscheme
 Plug 'neoclide/coc.nvim', {'branch': 'release'} " nodejs extension host, lsp, autocomplete
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " incremental parsing system + code highlight
 Plug 'pocke/whichpr' " open which pr code was commited
+Plug 'RRethy/nvim-treesitter-endwise' " add end to ruby ifs/blocks etc.
 Plug 'scrooloose/nerdtree' " file manager
 Plug 'shime/vim-livedown' " markdown preview in browser
 Plug 'tmhedberg/matchit'
-Plug 'tpope/vim-endwise'  " add end to ruby ifs/blocks etc.
 Plug 'tpope/vim-fugitive' " git
 Plug 'tpope/vim-markdown' " markdown
 Plug 'tpope/vim-rails' " rails
 Plug 'tpope/vim-rhubarb' " github integration with fugitive
 Plug 'vim-airline/vim-airline' " status line
 Plug 'vim-airline/vim-airline-themes' " status line themes
-Plug 'dense-analysis/ale' " probably not needed
 Plug 'wakatime/vim-wakatime' " statistics from editing
 call plug#end()
 
@@ -107,6 +106,8 @@ set mousehide
 set mouse=a
 set tags=.tags;
 set inccommand=nosplit
+" Shared clipboard between instances
+" set clipboard=unnamedplus
 
 filetype plugin on
 
@@ -202,6 +203,7 @@ endif
 augroup vimrc_autocmd
     autocmd!
     autocmd BufRead,BufNewFile *.js.erb set filetype=javascript
+    autocmd BufRead,BufNewFile *.yml set filetype=yaml
     autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
     autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
     autocmd FileType php setlocal omnifunc=javascriptcomplete#CompletePHP
@@ -316,7 +318,7 @@ let g:ale_set_highlights = 0
 let g:ale_linters_explicit = 1 " run only the linters defined explictly below
 let g:ale_ruby_rubocop_executable = 'bundle'
 let g:ale_linters = {
-\   'ruby': ['rubocop'],
+\   'ruby': ['standardrb'],
 \   'javascript': ['eslint'],
 \}
 
@@ -359,7 +361,7 @@ let g:gitgutter_git_executable='/usr/bin/git'
 
 lua << EOF
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = { "c", "lua", "vim", "help", "ruby", "go", "javascript", "yaml" },
+  ensure_installed = { "c", "lua", "vim", "help", "ruby", "go", "javascript", "yaml", "gitcommit"},
   sync_install = false,
   auto_install = true,
   highlight = {
@@ -367,5 +369,9 @@ require'nvim-treesitter.configs'.setup {
     additional_vim_regex_highlighting = false,
   },
 }
+require('nvim-treesitter.configs').setup {
+  endwise = {
+    enable = true,
+  },
+}
 EOF
-
