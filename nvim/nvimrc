@@ -16,6 +16,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } " fuzzy finder
 Plug 'junegunn/fzf.vim' " fuzzy finder
 Plug 'junegunn/vim-easy-align' " align text by chars
 Plug 'kassio/neoterm' " terminal ?
+Plug 'mhartington/oceanic-next' " colorscheme
 Plug 'neoclide/coc.nvim', {'branch': 'release'} " nodejs extension host, lsp, autocomplete
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " incremental parsing system + code highlight
 Plug 'pocke/whichpr' " open which pr code was commited
@@ -42,13 +43,26 @@ set nobackup
 set nowb
 set noswapfile
 set vb
-" syntax enable
+syntax enable
 set t_Co=256
 set t_ut=
 set background=dark
 
 let base16colorspace=256
-colorscheme base16-default-dark
+
+if (has("termguicolors"))
+ set termguicolors
+endif
+
+let g:oceanic_next_terminal_bold = 1
+let g:oceanic_next_terminal_italic = 1
+
+colorscheme OceanicNext
+
+hi Normal guibg=NONE ctermbg=NONE
+hi LineNr guibg=NONE ctermbg=NONE
+hi SignColumn guibg=NONE ctermbg=NONE
+hi EndOfBuffer guibg=NONE ctermbg=NONE
 
 runtime macros/matchit.vim
 
@@ -324,7 +338,7 @@ let NERDTreeShowHidden=1
 let g:airline_left_sep=''
 let g:airline_right_sep=''
 let g:airline_powerline_fonts = 0
-let g:airline_theme='base16'
+let g:airline_theme='oceanicnext'
 let g:airline#extensions#tabline#enabled = 0
 let g:airline#extensions#ale#enabled = 1
 let g:airline#extensions#default#section_truncate_width = {
