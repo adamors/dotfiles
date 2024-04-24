@@ -117,7 +117,7 @@ if has('conceal')
   set conceallevel=2 concealcursor=i
 endif
 
-command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, '--ignore=sorbet', fzf#vim#with_preview(), <bang>0)
+command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, '--hidden --ignore=.git --ignore=sorbet', fzf#vim#with_preview(), <bang>0)
 
 function! SaveProper()
     let current_filetype = &filetype
