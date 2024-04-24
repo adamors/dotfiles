@@ -7,7 +7,7 @@ let g:ale_completion_enabled = 1
 
 call plug#begin('~/.nvim/plugged')
 " Plug 'eliba2/vim-node-inspect'
-Plug 'airblade/vim-gitgutter' " git diffs
+Plug 'airblade/vim-gitgutter', {'branch': 'main'} " git diffs
 Plug 'dense-analysis/ale' " probably not needed
 Plug 'editorconfig/editorconfig-vim' " editor config
 Plug 'elzr/vim-json' " json
@@ -23,6 +23,8 @@ Plug 'pocke/whichpr' " open which pr code was commited
 Plug 'RRethy/nvim-treesitter-endwise' " add end to ruby ifs/blocks etc.
 Plug 'scrooloose/nerdtree' " file manager
 Plug 'shime/vim-livedown' " markdown preview in browser
+Plug 'shumphrey/fugitive-gitlab.vim' " gitlab specific enhancements
+Plug 'slim-template/vim-slim' " syntax highlight for slim templates
 Plug 'tmhedberg/matchit'
 Plug 'tpope/vim-fugitive' " git
 Plug 'tpope/vim-markdown' " markdown
@@ -203,7 +205,7 @@ endif
 augroup vimrc_autocmd
     autocmd!
     autocmd BufRead,BufNewFile *.js.erb set filetype=javascript
-    autocmd BufRead,BufNewFile *.yml set filetype=yaml
+    autocmd BufNewFile,BufReadPost *.{yaml,yml} set filetype=yaml
     autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
     autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
     autocmd FileType php setlocal omnifunc=javascriptcomplete#CompletePHP
@@ -234,7 +236,7 @@ vnoremap <space>s :call GitSearchForWord(GetVisual())<CR>
 nnoremap <silent> <C-s> :call SaveProper()<CR>
 nnoremap <space> :noh<cr>
 nnoremap <leader>n :NERDTreeToggle<cr>
-nnoremap <leader>z :TlistToggle<cr>
+" nnoremap <leader>z :TlistToggle<cr>
 nnoremap <leader>N :NERDTreeFind<cr>
 " nnoremap <leader>s :silent! make<CR>
 nnoremap <C-tab> :bn<CR>
@@ -306,7 +308,8 @@ let g:neoterm_autoinsert = 1
 nnoremap <silent> <Leader>t  :Tnew<cr>
 " run the currently opened file in rspec
 nnoremap <silent> <Leader>r  :T bspec %<cr>
-" nnoremap <silent> <Leader>r  :T go run %<cr>
+" nnoremap <silent> <Leader>z  :T bin/cop -A %<cr>
+nnoremap <silent> <Leader>r  :T go run %<cr>
 " nnoremap <silent> <Leader>e :TREPLSendLine<cr>
 " vnoremap <silent> <Leader>e :TREPLSendSelection<cr>
 " nnoremap <silent> ,th :call neoterm#close()<cr>
@@ -316,10 +319,10 @@ vnoremap <space>e :s/\%V.*/\=CalculateExpression(submatch(0))/<CR>:noh<CR>
 
 let g:ale_set_highlights = 0
 let g:ale_linters_explicit = 1 " run only the linters defined explictly below
-let g:ale_ruby_rubocop_executable = 'bundle'
+" let g:ale_ruby_rubocop_executable = 'bundle'
 let g:ale_linters = {
-\   'ruby': ['standardrb'],
-\   'javascript': ['eslint'],
+\   'ruby': ['rubocop'],
+\   'javascript': [],
 \}
 
 " Use K for show documentation in preview window
@@ -358,6 +361,8 @@ let g:vim_json_syntax_conceal = 0
 let g:livedown_autorun = 1
 
 let g:gitgutter_git_executable='/usr/bin/git'
+
+let g:fugitive_gitlab_domains = [] " https://gitlab.company.com
 
 lua << EOF
 require'nvim-treesitter.configs'.setup {

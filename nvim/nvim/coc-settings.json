@@ -3,18 +3,30 @@
   "yaml.enable": true,
   "yaml.completion": true,
   "yaml.validate": true,
-  "yaml.schemaStoreEnabled": true,
   "yaml.schemas": {
-    "kubernetes": ["/*.yaml"]
+    "kubernetes": [
+      "/*.yaml"
+    ]
   },
   "languageserver": {
     "golang": {
       "command": "gopls",
-      "rootPatterns": ["go.work", "go.mod", ".vim/", ".git/", ".hg/"],
-      "filetypes": ["go"],
+      "rootPatterns": [
+        "go.work",
+        "go.mod",
+        ".vim/",
+        ".git/",
+        ".hg/"
+      ],
+      "filetypes": [
+        "go"
+      ],
       "initializationOptions": {
         "usePlaceholders": true
       }
     }
+  },
+  "go.goplsOptions": {
+    "staticcheck": true
   }
 }
