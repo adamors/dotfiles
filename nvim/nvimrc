@@ -33,6 +33,7 @@ Plug 'tpope/vim-rhubarb' " github integration with fugitive
 Plug 'vim-airline/vim-airline' " status line
 Plug 'vim-airline/vim-airline-themes' " status line themes
 Plug 'wakatime/vim-wakatime' " statistics from editing
+" Plug 'lervag/vimtex' " Latex
 call plug#end()
 
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
@@ -205,7 +206,7 @@ endif
 augroup vimrc_autocmd
     autocmd!
     autocmd BufRead,BufNewFile *.js.erb set filetype=javascript
-    autocmd BufNewFile,BufReadPost *.{yaml,yml} set filetype=yaml
+    autocmd BufRead,BufNewFile *.yaml,*.yml set filetype=yaml
     autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
     autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
     autocmd FileType php setlocal omnifunc=javascriptcomplete#CompletePHP
@@ -216,9 +217,11 @@ augroup vimrc_autocmd
     autocmd FileType ruby setlocal re=1 foldmethod=manual
     autocmd FileType make set noexpandtab
     autocmd Syntax * call matchadd('Todo',  '\W\zs\(TODO\|FIXME\|CHANGED\|XXX\|BUG\|HACK\)')
+    autocmd BufNewFile,BufRead *.py setlocal tabstop=4 softtabstop=4 shiftwidth=4 textwidth=79 expandtab autoindent fileformat=unix
     au BufNewFile,BufRead Jenkinsfile setf groovy
     " autocmd! BufWritePost * Neomake
 augroup END
+
 let s:tab_sensitive_filetypes = ['make', 'go']
 
 set wildignore+=*.psd,*.doc,*.docx,*.xlsx
@@ -227,6 +230,7 @@ set wildignore+=*/node_modules/**
 set wildignore+=*/bower_components/**
 
 let mapleader = ","
+let maplocalleader = ";"
 " free up control-q for tmux
 noremap <C-q> <Nop>
 inoremap jk <esc>
@@ -309,7 +313,7 @@ nnoremap <silent> <Leader>t  :Tnew<cr>
 " run the currently opened file in rspec
 nnoremap <silent> <Leader>r  :T bspec %<cr>
 " nnoremap <silent> <Leader>z  :T bin/cop -A %<cr>
-nnoremap <silent> <Leader>r  :T go run %<cr>
+" nnoremap <silent> <Leader>r  :T go run %<cr>
 " nnoremap <silent> <Leader>e :TREPLSendLine<cr>
 " vnoremap <silent> <Leader>e :TREPLSendSelection<cr>
 " nnoremap <silent> ,th :call neoterm#close()<cr>
@@ -319,9 +323,10 @@ vnoremap <space>e :s/\%V.*/\=CalculateExpression(submatch(0))/<CR>:noh<CR>
 
 let g:ale_set_highlights = 0
 let g:ale_linters_explicit = 1 " run only the linters defined explictly below
-" let g:ale_ruby_rubocop_executable = 'bundle'
+let g:ale_ruby_rubocop_executable = 'bundle'
 let g:ale_linters = {
 \   'ruby': ['rubocop'],
+\   'python': ['ruff'],
 \   'javascript': [],
 \}
 
@@ -366,7 +371,7 @@ let g:fugitive_gitlab_domains = [] " https://gitlab.company.com
 
 lua << EOF
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = { "c", "lua", "vim", "help", "ruby", "go", "javascript", "yaml", "gitcommit"},
+  ensure_installed = { "c", "lua", "vim", "help", "ruby", "go", "python", "javascript", "gitcommit", "terraform"},
   sync_install = false,
   auto_install = true,
   highlight = {
@@ -380,3 +385,6 @@ require('nvim-treesitter.configs').setup {
   },
 }
 EOF
+
+
+" let g:vimtex_compiler_engine = 'lualatex'

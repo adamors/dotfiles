@@ -24,7 +24,7 @@
       "initializationOptions": {
         "usePlaceholders": true
       }
-    }
+    },
   },
   "go.goplsOptions": {
     "staticcheck": true
