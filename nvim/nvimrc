@@ -3,12 +3,12 @@ if $SHELL =~ 'bin/fish'
 endif
 
 set nocompatible
-let g:ale_completion_enabled = 1
+" let g:ale_completion_enabled = 1
 
 call plug#begin('~/.nvim/plugged')
 " Plug 'eliba2/vim-node-inspect'
 Plug 'airblade/vim-gitgutter', {'branch': 'main'} " git diffs
-Plug 'dense-analysis/ale' " probably not needed
+" Plug 'dense-analysis/ale' " probably not needed
 Plug 'editorconfig/editorconfig-vim' " editor config
 Plug 'elzr/vim-json' " json
 Plug 'fatih/vim-go' " go
@@ -336,14 +336,14 @@ nnoremap <silent> <Leader>r  :T bspec %<cr>
 " use for arithmetic expressions, selection will be replaced with it's value
 vnoremap <space>e :s/\%V.*/\=CalculateExpression(submatch(0))/<CR>:noh<CR>
 
-let g:ale_set_highlights = 0
-let g:ale_linters_explicit = 1 " run only the linters defined explictly below
-let g:ale_ruby_rubocop_executable = 'bundle'
-let g:ale_linters = {
-\   'ruby': ['rubocop'],
-\   'python': ['ruff'],
-\   'javascript': [],
-\}
+" let g:ale_set_highlights = 0
+" let g:ale_linters_explicit = 1 " run only the linters defined explictly below
+" let g:ale_ruby_rubocop_executable = 'bundle'
+" let g:ale_linters = {
+" \   'ruby': ['rubocop'],
+" \   'python': ['ruff'],
+" \   'javascript': [],
+" \}
 
 " Use K for show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
@@ -365,7 +365,7 @@ let g:airline_right_sep=''
 let g:airline_powerline_fonts = 0
 let g:airline_theme='oceanicnext'
 let g:airline#extensions#tabline#enabled = 0
-let g:airline#extensions#ale#enabled = 1
+" let g:airline#extensions#ale#enabled = 1
 let g:airline#extensions#default#section_truncate_width = {
       \ 'b': 99,
       \ 'x': 60,
