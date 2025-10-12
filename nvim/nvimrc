@@ -222,6 +222,20 @@ augroup vimrc_autocmd
     " autocmd! BufWritePost * Neomake
 augroup END
 
+augroup go_mappings
+    autocmd!
+    " Browse methods/functions in current file
+    autocmd FileType go nnoremap <leader>d :GoDecls<CR>
+    " Browse methods/functions in current package
+    autocmd FileType go nnoremap <leader>D :GoDeclsDir<CR>
+    " Find references to symbol under cursor
+    autocmd FileType go nnoremap <leader>gr :GoReferrers<CR>
+    " Jump to implementation
+    autocmd FileType go nnoremap <leader>gi :GoImplements<CR>
+    " Show type info
+    autocmd FileType go nnoremap <leader>i :GoInfo<CR>
+augroup END
+
 let s:tab_sensitive_filetypes = ['make', 'go']
 
 set wildignore+=*.psd,*.doc,*.docx,*.xlsx
@@ -295,7 +309,8 @@ inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 nnoremap <C-P> :Files .<CR>
 noremap <C-A> :Buffers<CR>
 " nnoremap <Leader>f :<C-U>tjump <Plug><cword><CR>
-noremap <Leader>f g<C-]>
+" noremap <Leader>f g<C-]>
+noremap <Leader>f <Plug>(coc-definition)
 vnoremap // y/<C-R>"<CR>
 
 " Neovim remapped Y to y$, I don't like it
@@ -369,21 +384,51 @@ let g:gitgutter_git_executable='/usr/bin/git'
 
 let g:fugitive_gitlab_domains = [] " https://gitlab.company.com
 
+" Go stuff
+let g:go_decls_mode = 'fzf'
+
 lua << EOF
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = { "c", "lua", "vim", "help", "ruby", "go", "python", "javascript", "gitcommit", "terraform"},
+  ignore_install = { 'help' },
+  ensure_installed = { "c", "lua", "vim", "help", "ruby", "go", "python", "javascript", "gitcommit", "terraform", "typescript", "json"},
   sync_install = false,
   auto_install = true,
   highlight = {
     enable = true,
     additional_vim_regex_highlighting = false,
   },
+  indent = { enable = true },
 }
 require('nvim-treesitter.configs').setup {
   endwise = {
     enable = true,
   },
 }
+
+-- Treesitter-powered folding
+
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr   = "v:lua.vim.treesitter.foldexpr()"
+vim.opt.foldtext   = "v:lua.vim.treesitter.foldtext()"  -- optional, nicer text
+vim.opt.foldenable = true
+vim.opt.foldlevel  = 99
+vim.opt.foldlevelstart = 99
+
+-- Define a global Lua foldtext function
+_G.custom_foldtext = function()
+  local line = vim.fn.getline(vim.v.foldstart)
+  if line:match("^%s*$") then
+    line = vim.fn.getline(vim.v.foldstart + 1)
+  end
+  line = line:gsub("\t", string.rep(" ", vim.o.tabstop))
+
+  local count = vim.v.foldend - vim.v.foldstart + 1
+  local icon = "▼"  -- pick something your font supports
+  return string.format("%s  %s  %d lines", line, icon, count)
+end
+
+-- Set foldtext to call the Lua function
+vim.opt.foldtext = "v:lua.custom_foldtext()"
 EOF
 
 
