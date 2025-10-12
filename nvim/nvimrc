@@ -2,7 +2,7 @@ if $SHELL =~ 'bin/fish'
     set shell=/bin/sh
 endif
 
-set nocompatible
+" set nocompatible
 " let g:ale_completion_enabled = 1
 
 call plug#begin('~/.nvim/plugged')
@@ -35,18 +35,17 @@ Plug 'vim-airline/vim-airline' " status line
 Plug 'wakatime/vim-wakatime' " statistics from editing
 call plug#end()
 
-let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+" let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 let $FZF_DEFAULT_COMMAND='find . \( -name node_modules -o -name .git -o -name sorbet -o -name .nx \) -prune -o -print'
 
 set encoding=utf8
-set regexpengine=1
 set nobackup
 set nowb
 set noswapfile
 set vb
 syntax enable
-set t_Co=256
-set t_ut=
+" set t_Co=256
+" set t_ut=
 set background=dark
 
 let base16colorspace=256
@@ -106,7 +105,7 @@ set laststatus=2
 set completeopt-=preview
 set mousehide
 set mouse=a
-set tags=.tags;
+" set tags=.tags;
 set inccommand=nosplit
 " Shared clipboard between instances
 " set clipboard=unnamedplus
@@ -206,14 +205,14 @@ augroup vimrc_autocmd
     autocmd!
     autocmd BufRead,BufNewFile *.js.erb set filetype=javascript
     autocmd BufRead,BufNewFile *.yaml,*.yml set filetype=yaml
-    autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-    autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-    autocmd FileType php setlocal omnifunc=javascriptcomplete#CompletePHP
+    " autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+    " autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+    " autocmd FileType php setlocal omnifunc=javascriptcomplete#CompletePHP
     "autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
     "autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
     "autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
     "autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
-    autocmd FileType ruby setlocal re=1 foldmethod=manual
+    " autocmd FileType ruby setlocal re=1 foldmethod=manual
     autocmd FileType make set noexpandtab
     autocmd Syntax * call matchadd('Todo',  '\W\zs\(TODO\|FIXME\|CHANGED\|XXX\|BUG\|HACK\)')
     autocmd BufNewFile,BufRead *.py setlocal tabstop=4 softtabstop=4 shiftwidth=4 textwidth=79 expandtab autoindent fileformat=unix
