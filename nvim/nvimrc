@@ -9,8 +9,10 @@ call plug#begin('~/.nvim/plugged')
 " Plug 'dense-analysis/ale' " probably not needed
 " Plug 'eliba2/vim-node-inspect'
 " Plug 'elzr/vim-json' " json
-" Plug 'tpope/vim-markdown' " markdown
+" Plug 'pocke/whichpr' " open which pr code was commited
 " Plug 'shumphrey/fugitive-gitlab.vim' " gitlab specific enhancements
+" Plug 'slim-template/vim-slim' " syntax highlight for slim templates
+" Plug 'tpope/vim-markdown' " markdown
 Plug 'airblade/vim-gitgutter', {'branch': 'main'} " git diffs
 Plug 'editorconfig/editorconfig-vim' " editor config
 Plug 'fatih/vim-go' " go
@@ -22,11 +24,9 @@ Plug 'lervag/vimtex' " Latex
 Plug 'mhartington/oceanic-next' " colorscheme
 Plug 'neoclide/coc.nvim', {'branch': 'release'} " nodejs extension host, lsp, autocomplete
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " incremental parsing system + code highlight
-Plug 'pocke/whichpr' " open which pr code was commited
 Plug 'RRethy/nvim-treesitter-endwise' " add end to ruby ifs/blocks etc.
 Plug 'scrooloose/nerdtree' " file manager
 Plug 'shime/vim-livedown' " markdown preview in browser
-Plug 'slim-template/vim-slim' " syntax highlight for slim templates
 Plug 'tpope/vim-fugitive' " git
 Plug 'tpope/vim-rails' " rails
 Plug 'tpope/vim-rhubarb' " github integration with fugitive
