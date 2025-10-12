@@ -1,4 +1,10 @@
 {
+  "pyright.inlayHints.variableTypes": false,
+  "pyright.inlayHints.functionReturnTypes": false,
+  "pyright.inlayHints.parameterNames": false,
+  "pyright.inlayHints.parameterTypes": false,
+  "python.analysis.autoImportCompletions": true,
+  "python.analysis.useLibraryCodeForTypes": true,
   "suggest.noselect": true,
   "yaml.enable": true,
   "yaml.completion": true,
@@ -23,6 +29,17 @@
       ],
       "initializationOptions": {
         "usePlaceholders": true
+      }
+    },
+    "ruby": {
+      "command": "solargraph",
+      "args": ["stdio"],
+      "filetypes": ["ruby"],
+      "rootPatterns": ["Gemfile", ".git/"],
+      "settings": {
+        "solargraph": {
+          "diagnostics": true
+        }
       }
     },
   },
