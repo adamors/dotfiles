@@ -33,11 +33,11 @@ Plug 'tpope/vim-rhubarb' " github integration with fugitive
 Plug 'vim-airline/vim-airline' " status line
 Plug 'vim-airline/vim-airline-themes' " status line themes
 Plug 'wakatime/vim-wakatime' " statistics from editing
-" Plug 'lervag/vimtex' " Latex
+Plug 'lervag/vimtex' " Latex
 call plug#end()
 
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-let $FZF_DEFAULT_COMMAND='find . \( -name node_modules -o -name .git -o -name sorbet \) -prune -o -print'
+let $FZF_DEFAULT_COMMAND='find . \( -name node_modules -o -name .git -o -name sorbet -o -name .nx \) -prune -o -print'
 
 set encoding=utf8
 set regexpengine=1
@@ -314,12 +314,12 @@ noremap <Leader>f <Plug>(coc-definition)
 vnoremap // y/<C-R>"<CR>
 
 " Neovim remapped Y to y$, I don't like it
-nunmap Y
+" nunmap Y
 
 " terminal keybinds
 let g:neoterm_default_mod='belowright'
 
-let g:neoterm_shell='fish'
+let g:neoterm_shell='/usr/bin/arch -arm64 /opt/homebrew/bin/fish'
 " let g:neoterm_default_mod = 'horizontal'
 let g:neoterm_keep_term_open = 0
 let g:neoterm_autoinsert = 1
