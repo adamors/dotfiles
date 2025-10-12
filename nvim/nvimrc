@@ -6,16 +6,19 @@ set nocompatible
 " let g:ale_completion_enabled = 1
 
 call plug#begin('~/.nvim/plugged')
-" Plug 'eliba2/vim-node-inspect'
-Plug 'airblade/vim-gitgutter', {'branch': 'main'} " git diffs
 " Plug 'dense-analysis/ale' " probably not needed
+" Plug 'eliba2/vim-node-inspect'
+" Plug 'elzr/vim-json' " json
+" Plug 'tpope/vim-markdown' " markdown
+" Plug 'shumphrey/fugitive-gitlab.vim' " gitlab specific enhancements
+Plug 'airblade/vim-gitgutter', {'branch': 'main'} " git diffs
 Plug 'editorconfig/editorconfig-vim' " editor config
-Plug 'elzr/vim-json' " json
 Plug 'fatih/vim-go' " go
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } " fuzzy finder
 Plug 'junegunn/fzf.vim' " fuzzy finder
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } " fuzzy finder
 Plug 'junegunn/vim-easy-align' " align text by chars
 Plug 'kassio/neoterm' " terminal ?
+Plug 'lervag/vimtex' " Latex
 Plug 'mhartington/oceanic-next' " colorscheme
 Plug 'neoclide/coc.nvim', {'branch': 'release'} " nodejs extension host, lsp, autocomplete
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " incremental parsing system + code highlight
@@ -23,17 +26,13 @@ Plug 'pocke/whichpr' " open which pr code was commited
 Plug 'RRethy/nvim-treesitter-endwise' " add end to ruby ifs/blocks etc.
 Plug 'scrooloose/nerdtree' " file manager
 Plug 'shime/vim-livedown' " markdown preview in browser
-Plug 'shumphrey/fugitive-gitlab.vim' " gitlab specific enhancements
 Plug 'slim-template/vim-slim' " syntax highlight for slim templates
-Plug 'tmhedberg/matchit'
 Plug 'tpope/vim-fugitive' " git
-Plug 'tpope/vim-markdown' " markdown
 Plug 'tpope/vim-rails' " rails
 Plug 'tpope/vim-rhubarb' " github integration with fugitive
-Plug 'vim-airline/vim-airline' " status line
 Plug 'vim-airline/vim-airline-themes' " status line themes
+Plug 'vim-airline/vim-airline' " status line
 Plug 'wakatime/vim-wakatime' " statistics from editing
-Plug 'lervag/vimtex' " Latex
 call plug#end()
 
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
@@ -390,7 +389,10 @@ let g:go_decls_mode = 'fzf'
 lua << EOF
 require'nvim-treesitter.configs'.setup {
   ignore_install = { 'help' },
-  ensure_installed = { "c", "lua", "vim", "help", "ruby", "go", "python", "javascript", "gitcommit", "terraform", "typescript", "json"},
+  ensure_installed = {
+    "c", "gitcommit", "go", "javascript", "json", "lua", "markdown", "python",
+    "ruby", "terraform", "typescript", "vim",
+  },
   sync_install = false,
   auto_install = true,
   highlight = {
