@@ -13,33 +13,33 @@ call plug#begin('~/.nvim/plugged')
 " Plug 'shumphrey/fugitive-gitlab.vim' " gitlab specific enhancements
 " Plug 'slim-template/vim-slim' " syntax highlight for slim templates
 " Plug 'tpope/vim-markdown' " markdown
-Plug 'airblade/vim-gitgutter', {'branch': 'main'} " git diffs
-Plug 'editorconfig/editorconfig-vim' " editor config
-Plug 'fatih/vim-go' " go
-Plug 'junegunn/fzf.vim' " fuzzy finder
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } " fuzzy finder
-Plug 'junegunn/vim-easy-align' " align text by chars
-Plug 'kassio/neoterm' " terminal ?
-Plug 'leoluz/nvim-dap-go' " Delve adapter + go config helper
-Plug 'lervag/vimtex' " Latex
-Plug 'mfussenegger/nvim-dap' " DAP
-Plug 'mhartington/oceanic-next' " colorscheme
-Plug 'neoclide/coc.nvim', {'branch': 'release'} " nodejs extension host, lsp, autocomplete
-Plug 'nvim-treesitter/nvim-treesitter', {'branch': 'main', 'do': ':TSUpdate'} " incremental parsing system + code highlight
-Plug 'nvim-neotest/nvim-nio' " required by nvim-dap-ui
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " incremental parsing system + code highlight
-Plug 'rcarriga/nvim-dap-ui' " DAP UI
-Plug 'RRethy/nvim-treesitter-endwise' " add end to ruby ifs/blocks etc.
-Plug 'scrooloose/nerdtree' " file manager
-Plug 'shime/vim-livedown' " markdown preview in browser
-Plug 'theHamsta/nvim-dap-virtual-text'  " optional: inline var values
-Plug 'tpope/vim-fugitive' " git
-Plug 'shumphrey/fugitive-gitlab.vim' " gitlab browse
-Plug 'tpope/vim-rails' " rails
-Plug 'tpope/vim-rhubarb' " github integration with fugitive
-Plug 'vim-airline/vim-airline-themes' " status line themes
-Plug 'vim-airline/vim-airline' " status line
-Plug 'wakatime/vim-wakatime' " statistics from editing
+Plug 'airblade/vim-gitgutter', {'branch': 'main'}                             " git diffs
+Plug 'editorconfig/editorconfig-vim'                                          " editor config
+Plug 'fatih/vim-go'                                                           " go
+Plug 'junegunn/fzf.vim'                                                       " fuzzy finder
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }             " fuzzy finder
+Plug 'junegunn/vim-easy-align'                                                " align text by chars
+Plug 'kassio/neoterm'                                                         " terminal ?
+Plug 'leoluz/nvim-dap-go'                                                     " Delve adapter + go config helper
+Plug 'lervag/vimtex'                                                          " Latex
+Plug 'mfussenegger/nvim-dap'                                                  " DAP
+Plug 'mhartington/oceanic-next'                                               " colorscheme
+Plug 'neoclide/coc.nvim', {'branch': 'release'}                               " nodejs extension host, lsp, autocomplete
+Plug 'nvim-neotest/nvim-nio'                                                  " required by nvim-dap-ui
+" Plug 'nvim-treesitter/nvim-treesitter', {'branch': 'main', 'do': ':TSUpdate'} " incremental parsing system + code highlight
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}                   " incremental parsing system + code highlight
+Plug 'rcarriga/nvim-dap-ui'                                                   " DAP UI
+Plug 'RRethy/nvim-treesitter-endwise'                                         " add end to ruby ifs/blocks etc.
+Plug 'scrooloose/nerdtree'                                                    " file manager
+Plug 'shime/vim-livedown'                                                     " markdown preview in browser
+Plug 'shumphrey/fugitive-gitlab.vim'                                          " gitlab browse
+Plug 'theHamsta/nvim-dap-virtual-text'                                        " optional: inline var values
+Plug 'tpope/vim-fugitive'                                                     " git
+Plug 'tpope/vim-rails'                                                        " rails
+Plug 'tpope/vim-rhubarb'                                                      " github integration with fugitive
+Plug 'vim-airline/vim-airline-themes'                                         " status line themes
+Plug 'vim-airline/vim-airline'                                                " status line
+Plug 'wakatime/vim-wakatime'                                                  " statistics from editing
 call plug#end()
 
 " let $NVIM_TUI_ENABLE_TRUE_COLOR=1
