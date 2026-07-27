@@ -308,11 +308,12 @@ nnoremap <C-P> :Files .<CR>
 noremap <C-A> :Buffers<CR>
 " nnoremap <Leader>f :<C-U>tjump <Plug><cword><CR>
 " noremap <Leader>f g<C-]>
-noremap <Leader>f <Plug>(coc-definition)
+" noremap <Leader>f <Plug>(coc-definition)
+noremap <Leader>f <Plug>(go-def)
 vnoremap // y/<C-R>"<CR>
 
 " Neovim remapped Y to y$, I don't like it
-" nunmap Y
+nunmap Y
 
 " terminal keybinds
 let g:neoterm_default_mod='belowright'
@@ -322,11 +323,25 @@ let g:neoterm_shell='/usr/bin/arch -arm64 /opt/homebrew/bin/fish'
 let g:neoterm_keep_term_open = 0
 let g:neoterm_autoinsert = 1
 
+" " Create named terminal
+" function! NamedTerminal()
+"     let name = input('Terminal name: ')
+"     if empty(name)
+"         Tnew
+"     else
+"         execute 'Tnew'
+"         execute 'file! term-' . name
+"     endif
+" endfunction
+
+" nnoremap <silent> <Leader>t :call NamedTerminal()<CR>
+
 nnoremap <silent> <Leader>t  :Tnew<cr>
+" nnoremap <silent> <Leader>a :T claude<cr>
 " run the currently opened file in rspec
-nnoremap <silent> <Leader>r  :T bspec %<cr>
+" nnoremap <silent> <Leader>r  :T bspec %<cr>
 " nnoremap <silent> <Leader>z  :T bin/cop -A %<cr>
-" nnoremap <silent> <Leader>r  :T go run %<cr>
+nnoremap <silent> <Leader>r  :T go run %<cr>
 " nnoremap <silent> <Leader>e :TREPLSendLine<cr>
 " vnoremap <silent> <Leader>e :TREPLSendSelection<cr>
 " nnoremap <silent> ,th :call neoterm#close()<cr>
@@ -384,6 +399,7 @@ let g:fugitive_gitlab_domains = [] " https://gitlab.company.com
 
 " Go stuff
 let g:go_decls_mode = 'fzf'
+let g:go_gopls_options = []  " disable daemon mode, gopls exits with nvim
 
 lua << EOF
 require'nvim-treesitter.configs'.setup {
@@ -407,6 +423,8 @@ require('nvim-treesitter.configs').setup {
 }
 
 -- Treesitter-powered folding
+-- zc - close fold
+-- zo - open fold
 
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr   = "v:lua.vim.treesitter.foldexpr()"
