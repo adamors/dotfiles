@@ -20,12 +20,19 @@ Plug 'junegunn/fzf.vim' " fuzzy finder
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } " fuzzy finder
 Plug 'junegunn/vim-easy-align' " align text by chars
 Plug 'kassio/neoterm' " terminal ?
+Plug 'leoluz/nvim-dap-go' " Delve adapter + go config helper
 Plug 'lervag/vimtex' " Latex
+Plug 'mfussenegger/nvim-dap' " DAP
 Plug 'mhartington/oceanic-next' " colorscheme
 Plug 'neoclide/coc.nvim', {'branch': 'release'} " nodejs extension host, lsp, autocomplete
 Plug 'nvim-treesitter/nvim-treesitter', {'branch': 'main', 'do': ':TSUpdate'} " incremental parsing system + code highlight
+Plug 'nvim-neotest/nvim-nio' " required by nvim-dap-ui
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " incremental parsing system + code highlight
+Plug 'rcarriga/nvim-dap-ui' " DAP UI
+Plug 'RRethy/nvim-treesitter-endwise' " add end to ruby ifs/blocks etc.
 Plug 'scrooloose/nerdtree' " file manager
 Plug 'shime/vim-livedown' " markdown preview in browser
+Plug 'theHamsta/nvim-dap-virtual-text'  " optional: inline var values
 Plug 'tpope/vim-fugitive' " git
 Plug 'shumphrey/fugitive-gitlab.vim' " gitlab browse
 Plug 'tpope/vim-rails' " rails
