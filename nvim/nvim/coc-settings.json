@@ -6,14 +6,6 @@
   "python.analysis.autoImportCompletions": true,
   "python.analysis.useLibraryCodeForTypes": true,
   "suggest.noselect": true,
-  "yaml.enable": true,
-  "yaml.completion": true,
-  "yaml.validate": true,
-  "yaml.schemas": {
-    "kubernetes": [
-      "/*.yaml"
-    ]
-  },
   "languageserver": {
     "golang": {
       "command": "gopls",

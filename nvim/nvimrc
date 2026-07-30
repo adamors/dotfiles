@@ -28,6 +28,7 @@ Plug 'RRethy/nvim-treesitter-endwise' " add end to ruby ifs/blocks etc.
 Plug 'scrooloose/nerdtree' " file manager
 Plug 'shime/vim-livedown' " markdown preview in browser
 Plug 'tpope/vim-fugitive' " git
+Plug 'shumphrey/fugitive-gitlab.vim' " gitlab browse
 Plug 'tpope/vim-rails' " rails
 Plug 'tpope/vim-rhubarb' " github integration with fugitive
 Plug 'vim-airline/vim-airline-themes' " status line themes
@@ -119,6 +120,12 @@ endif
 command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, '--hidden --ignore=.git --ignore=sorbet', fzf#vim#with_preview(), <bang>0)
 
 function! SaveProper()
+    " Skip the function entirely for Go files
+    if &filetype ==# 'go'
+        update
+        return
+    endif
+
     let current_filetype = &filetype
     if (index(s:tab_sensitive_filetypes, current_filetype) < 0)
         :%s/\s\+$//e " delete trailing whitespace
