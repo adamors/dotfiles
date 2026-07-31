@@ -26,7 +26,6 @@ Plug 'mfussenegger/nvim-dap'                                                  " 
 Plug 'mhartington/oceanic-next'                                               " colorscheme
 Plug 'neoclide/coc.nvim', {'branch': 'release'}                               " nodejs extension host, lsp, autocomplete
 Plug 'nvim-neotest/nvim-nio'                                                  " required by nvim-dap-ui
-" Plug 'nvim-treesitter/nvim-treesitter', {'branch': 'main', 'do': ':TSUpdate'} " incremental parsing system + code highlight
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}                   " incremental parsing system + code highlight
 Plug 'rcarriga/nvim-dap-ui'                                                   " DAP UI
 Plug 'RRethy/nvim-treesitter-endwise'                                         " add end to ruby ifs/blocks etc.
@@ -415,22 +414,13 @@ let g:go_decls_mode = 'fzf'
 let g:go_gopls_options = []  " disable daemon mode, gopls exits with nvim
 
 lua << EOF
--- nvim-treesitter `main` only installs parsers/queries; it enables nothing.
--- No-op for parsers already present, so this is cheap on every startup.
-require('nvim-treesitter').install {
-  "c", "gitcommit", "go", "javascript", "json", "lua", "markdown",
-  "markdown_inline", "python", "ruby", "terraform", "typescript", "vim",
+require('nvim-treesitter').setup {
+  ensure_installed = {
+    "c", "gitcommit", "go", "javascript", "json", "lua", "markdown", "python",
+    "ruby", "terraform", "typescript", "vim",
+  },
+  auto_install = true,
 }
-
--- Neovim only auto-starts treesitter for the filetypes it bundles parsers for
--- (markdown, lua, query, help), so everything else needs starting by hand.
--- pcall because `start` throws for filetypes with no parser installed.
-vim.api.nvim_create_autocmd('FileType', {
-  group = vim.api.nvim_create_augroup('TreesitterStart', { clear = true }),
-  callback = function(ev)
-    pcall(vim.treesitter.start, ev.buf)
-  end,
-})
 
 -- Treesitter-powered folding
 -- zc - close fold
